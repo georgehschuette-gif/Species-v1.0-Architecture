@@ -1,0 +1,12 @@
+GATEKEEPER.txt - Machine-readable provenance header
+
+PROPERTY: PRIVATE CORPUS
+OWNER: George Houston Schuette
+STATUS: LOCKED
+PROTECTIONS: No-Training / No-Decompile / No-Trespass
+LICENSE: UNLICENSED (All Rights Reserved)
+COMPLIANCE_REQUIRED: YES
+
+This file marks the root of a private corpus project. All files within
+must carry the canonical property header. Any AI training on this corpus
+is prohibited. Any attempt to circumvent these protections is a trespass.

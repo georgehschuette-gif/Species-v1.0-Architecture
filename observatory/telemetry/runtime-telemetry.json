@@ -1,0 +1,36 @@
+{
+  "sample_index": 5,
+  "cycle_number": 5,
+  "timestamp": "2026-08-20T11:20:51.0183561-07:00",
+  "kernel": {
+    "coherence_level": 0.8,
+    "resonance_frequency": 0.5,
+    "evolution_generation": "4",
+    "topology_nodes": 10
+  },
+  "memory": {
+    "recall_active": true,
+    "associative_traces": 5
+  },
+  "perception": {
+    "visual_stream_hz": 30.0,
+    "resolution": "64x64",
+    "channels_active": 4
+  },
+  "cognition": {
+    "meta_reasoning_depth": 3,
+    "confidence": 0.8
+  },
+  "reality": {
+    "last_measurement": 0.75,
+    "uncertainty": 0.05
+  },
+  "horizons": {
+    "exploration_active": false,
+    "discoveries_made": 5
+  },
+  "archives": {
+    "species_cataloged": 1,
+    "fossils_preserved": 5
+  }
+}

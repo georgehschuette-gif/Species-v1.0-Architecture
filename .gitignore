@@ -1,0 +1,34 @@
+# Rust
+/target/
+**/target/
+**/*.rs.bk
+Cargo.lock
+
+# Node.js / npm
+node_modules/
+resources/app/node_modules/
+*.node
+package-lock.json
+
+# Build artifacts
+/artifacts/
+/logs/
+*.log
+
+# Windsurf resources (not part of this project)
+resources/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local

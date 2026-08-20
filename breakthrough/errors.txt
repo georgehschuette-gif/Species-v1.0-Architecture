@@ -1,0 +1,1293 @@
+﻿cargo :     Checking breakthrough v0.1.0 (C:\Users\Administrator\AppData\Local\Programs\Windsurf\breakthrough)
+At line:4 char:98
++ ... pData\Local\Programs\Windsurf\breakthrough"; cargo check 2>&1 | Out-F ...
++                                                  ~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Checking br...f\breakthrough):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unused import: `DistanceError`
+ --> substrate\space\position.rs:5:23
+  |
+5 | use super::{Distance, DistanceError};
+  |                       ^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `crate::substrate::space::Distance`
+ --> substrate\attraction\force.rs:5:5
+  |
+5 | use crate::substrate::space::Distance;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::substrate::space::Distance`
+ --> substrate\repulsion\force.rs:5:5
+  |
+5 | use crate::substrate::space::Distance;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> cognition\concept_fusion\merging.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> cognition\concept_fusion\blending.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> cognition\perspective\framing.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> cognition\metacognition\meta_reason.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> cognition\self_model\capability_model.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> ecology\habitats\niche.rs:5:5
+  |
+5 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> ecology\habitats\resource.rs:5:5
+  |
+5 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> ecology\habitats\topology.rs:5:5
+  |
+5 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> ecology\adaptation\mutation.rs:5:5
+  |
+5 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> ecology\adaptation\drift.rs:5:5
+  |
+5 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> ecology\extinction\risk.rs:5:5
+  |
+5 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::Attractor`
+  --> attractors\stable\mod.rs:53:5
+   |
+53 | use crate::Attractor;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::Attractor`
+  --> attractors\unstable\mod.rs:50:5
+   |
+50 | use crate::Attractor;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::Attractor`
+  --> attractors\transient\mod.rs:49:5
+   |
+49 | use crate::Attractor;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::Attractor`
+  --> attractors\recursive\mod.rs:52:5
+   |
+52 | use crate::Attractor;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::Attractor`
+  --> attractors\emergent\mod.rs:52:5
+   |
+52 | use crate::Attractor;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::Attractor`
+  --> attractors\dormant\mod.rs:51:5
+   |
+51 | use crate::Attractor;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\contradictions\tension_field.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\contradictions\balance.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\ambiguity\gradient.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\ambiguity\interpretation.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\uncertainty\measure.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\uncertainty\reduction.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\novelty\detection.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\novelty\weighting.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\novelty\decay.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unnecessary parentheses around assigned value
+  --> tensions\novelty\decay.rs:23:33
+   |
+23 |         self.current_novelty *= (1.0 - self.decay_constant);
+   |                                 ^                         ^
+   |
+   = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+help: remove these parentheses
+   |
+23 -         self.current_novelty *= (1.0 - self.decay_constant);
+23 +         self.current_novelty *= 1.0 - self.decay_constant;
+   |
+
+warning: unused import: `super::*`
+ --> tensions\curiosity\drive.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\curiosity\saturation.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\curiosity\reward.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\paradox\containment.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\paradox\suspension.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> tensions\paradox\resolution.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::TensionsError`
+ --> tensions\incompleteness\mod.rs:5:5
+  |
+5 | use crate::TensionsError;
+  |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\incompleteness\gap.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\incompleteness\completion.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\incompleteness\tolerance.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::TensionsError`
+ --> tensions\pressure_maps\mod.rs:5:5
+  |
+5 | use crate::TensionsError;
+  |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\pressure_maps\field.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> tensions\pressure_maps\relief.rs:7:5
+  |
+7 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> morphogenesis\mutation\point.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\mutation\point.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\mutation\insertion.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\mutation\deletion.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\crossover\single.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\crossover\multi.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\crossover\uniform.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\recombination\homologous.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\recombination\non_homologous.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> morphogenesis\recombination\site_specific.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\recombination\site_specific.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\crystallization\nucleation.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> morphogenesis\crystallization\growth.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\crystallization\growth.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> morphogenesis\crystallization\lattice.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\crystallization\lattice.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\stabilization\energy.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\stabilization\structure.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\stabilization\equilibrium.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\bifurcation\pitchfork.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\bifurcation\hopf.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\bifurcation\period_doubling.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> morphogenesis\collapse\structural_collapse.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\collapse\structural_collapse.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\collapse\energy_collapse.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\collapse\information_collapse.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> morphogenesis\regeneration\cellular.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\regeneration\cellular.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> morphogenesis\regeneration\tissue.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\regeneration\tissue.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\regeneration\systemic.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\evolutionary_cycles\selection.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\evolutionary_cycles\drift.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> morphogenesis\evolutionary_cycles\adaptation.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+  --> memory\echoes\mod.rs:36:5
+   |
+36 | use std::fmt;
+   |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\echoes\echo.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\echoes\reverberation.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+  --> memory\traces\mod.rs:24:5
+   |
+24 | use std::fmt;
+   |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\traces\engram.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\traces\synaptic.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> memory\traces\synaptic.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+  --> memory\attractor_memory\mod.rs:36:5
+   |
+36 | use std::fmt;
+   |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\attractor_memory\basin.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\attractor_memory\state.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> memory\attractor_memory\state.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+  --> memory\episodic\mod.rs:39:5
+   |
+39 | use std::fmt;
+   |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\episodic\event.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\episodic\context.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+  --> memory\semantic\mod.rs:25:5
+   |
+25 | use std::fmt;
+   |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\semantic\fact.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\semantic\concept.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+  --> memory\procedural\mod.rs:26:5
+   |
+26 | use std::fmt;
+   |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\procedural\skill.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\procedural\sequence.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+  --> memory\procedural\sequence.rs:10:5
+   |
+10 | use super::*;
+   |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+  --> memory\latent_patterns\mod.rs:26:5
+   |
+26 | use std::fmt;
+   |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\latent_patterns\discovery.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\latent_patterns\extraction.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+  --> memory\forgotten\mod.rs:31:5
+   |
+31 | use std::fmt;
+   |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\forgotten\decay.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> memory\forgotten\suppression.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> memory\forgotten\suppression.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+  --> memory\reconstruction\mod.rs:34:5
+   |
+34 | use std::fmt;
+   |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> memory\reconstruction\recall.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> imagination\simulations\engine.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> imagination\alternate_worlds\branch.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> imagination\counterfactuals\condition.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> imagination\counterfactuals\outcome.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> imagination\impossible_objects\property.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::ImaginationError`
+ --> imagination\future_histories\mod.rs:5:5
+  |
+5 | use crate::ImaginationError;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::ImaginationError`
+ --> imagination\dream_cycles\mod.rs:5:5
+  |
+5 | use crate::ImaginationError;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::*`
+ --> imagination\dream_cycles\state.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> imagination\dream_cycles\narrative.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::ImaginationError`
+ --> imagination\synthetic_memories\mod.rs:5:5
+  |
+5 | use crate::ImaginationError;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::*`
+ --> imagination\synthetic_memories\fabrication.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+  --> imagination\speculative_reasoning\mod.rs:18:5
+   |
+18 | use std::fmt;
+   |     ^^^^^^^^
+
+warning: unused import: `crate::ImaginationError`
+ --> imagination\speculative_reasoning\deduction.rs:6:5
+  |
+6 | use crate::ImaginationError;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::*`
+ --> imagination\speculative_reasoning\evidence.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> reality\observations\sensor.rs:5:5
+  |
+5 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\observations\sensor.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+ --> reality\observations\sensor.rs:8:5
+  |
+8 | use crate::RealityError;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\observations\scene.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+ --> reality\observations\scene.rs:9:5
+  |
+9 | use crate::RealityError;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\observations\categorization.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+  --> reality\measurements\unit.rs:11:5
+   |
+11 | use std::collections::HashMap;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+  --> reality\measurements\unit.rs:12:5
+   |
+12 | use std::fmt;
+   |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+  --> reality\measurements\unit.rs:14:5
+   |
+14 | use crate::RealityError;
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\measurements\precision.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\measurements\accuracy.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\measurements\measurement.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\predictions\prediction.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> reality\predictions\forecast.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\predictions\scenario.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::collections::VecDeque`
+ --> reality\predictions\uncertainty.rs:5:5
+  |
+5 | use std::collections::VecDeque;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\predictions\uncertainty.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\predictions\model.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+ --> reality\predictions\model.rs:8:5
+  |
+8 | use crate::RealityError;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\interventions\intervention.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> reality\interventions\action.rs:5:5
+  |
+5 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\interventions\action.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+ --> reality\interventions\action.rs:8:5
+  |
+8 | use crate::RealityError;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\interventions\execution.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+ --> reality\interventions\execution.rs:7:5
+  |
+7 | use crate::RealityError;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\interventions\effect.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\consequences\consequence.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `super::*`
+ --> reality\consequences\causality.rs:9:5
+  |
+9 | use super::*;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\consequences\chain.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\consequences\magnitude.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\verification\verification.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+  --> reality\verification\verification.rs:10:5
+   |
+10 | use crate::RealityError;
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> reality\verification\test.rs:5:5
+  |
+5 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\verification\test.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+ --> reality\verification\test.rs:8:5
+  |
+8 | use crate::RealityError;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\verification\falsification.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+ --> reality\verification\falsification.rs:7:5
+  |
+7 | use crate::RealityError;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> reality\verification\validation.rs:5:5
+  |
+5 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\verification\validation.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+ --> reality\verification\validation.rs:8:5
+  |
+8 | use crate::RealityError;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\calibration\calibration.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+  --> reality\calibration\calibration.rs:10:5
+   |
+10 | use crate::RealityError;
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> reality\calibration\parameter.rs:5:5
+  |
+5 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\calibration\parameter.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+ --> reality\calibration\parameter.rs:8:5
+  |
+8 | use crate::RealityError;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> reality\calibration\fitting.rs:5:5
+  |
+5 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\calibration\fitting.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+ --> reality\calibration\fitting.rs:8:5
+  |
+8 | use crate::RealityError;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\calibration\residual.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\feedback\feedback.rs:6:5
+  |
+6 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\feedback\learning.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+ --> reality\feedback\learning.rs:7:5
+  |
+7 | use crate::RealityError;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\feedback\adaptation.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> reality\feedback\correction.rs:5:5
+  |
+5 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused import: `crate::RealityError`
+ --> reality\feedback\correction.rs:7:5
+  |
+7 | use crate::RealityError;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::VecDeque`
+ --> emergence\emergence_metrics\measurement.rs:5:5
+  |
+5 | use std::collections::VecDeque;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::cooling::Cooler`
+ --> metabolism\prioritization\priority.rs:6:5
+  |
+6 | use crate::cooling::Cooler;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `RequestPriority`
+ --> metabolism\prioritization\scheduler.rs:6:49
+  |
+6 | use crate::prioritization::{PrioritizedRequest, RequestPriority};
+  |                                                 ^^^^^^^^^^^^^^^
+
+warning: ambiguous glob re-exports
+  --> mod.rs:30:9
+   |
+30 | pub use substrate::*;
+   |         ^^^^^^^^^^^^ the name `synchronization` in the type namespace is first re-exported here
+...
+41 | pub use dynamics::*;
+   |         ----------- but the name `synchronization` in the type namespace is also re-exported here
+   |
+   = note: `#[warn(ambiguous_glob_reexports)]` on by default
+
+warning: ambiguous glob re-exports
+  --> mod.rs:30:9
+   |
+30 | pub use substrate::*;
+   |         ^^^^^^^^^^^^ the name `EnergyBudget` in the type namespace is first re-exported here
+...
+44 | pub use metabolism::*;
+   |         ------------- but the name `EnergyBudget` in the type namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> mod.rs:34:9
+   |
+34 | pub use fields::*;
+   |         ^^^^^^^^^ the name `semantic` in the type namespace is first re-exported here
+...
+38 | pub use memory::*;
+   |         --------- but the name `semantic` in the type namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> mod.rs:35:9
+   |
+35 | pub use attractors::*;
+   |         ^^^^^^^^^^^^^ the name `CriticalPoint` in the type namespace is first re-exported here
+...
+42 | pub use emergence::*;
+   |         ------------ but the name `CriticalPoint` in the type namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> mod.rs:37:9
+   |
+37 | pub use morphogenesis::*;
+   |         ^^^^^^^^^^^^^^^^ the name `stabilization` in the type namespace is first re-exported here
+...
+41 | pub use dynamics::*;
+   |         ----------- but the name `stabilization` in the type namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> mod.rs:40:9
+   |
+40 | pub use reality::*;
+   |         ^^^^^^^^^^ the name `Measurement` in the type namespace is first re-exported here
+41 | pub use dynamics::*;
+42 | pub use emergence::*;
+   |         ------------ but the name `Measurement` in the type namespace is also re-exported here
+
+warning: ambiguous glob re-exports
+  --> mod.rs:40:9
+   |
+40 | pub use reality::*;
+   |         ^^^^^^^^^^ the name `Action` in the type namespace is first re-exported here
+...
+43 | pub use expression::*;
+   |         ------------- but the name `Action` in the type namespace is also re-exported here
+
+error[E0277]: the trait bound `f64: Eq` is not satisfied
+  --> expression\creativity\novelty.rs:19:5
+   |
+16 | #[derive(Debug, Clone, PartialEq, Eq, Hash)]
+   |                                   -- in this derive macro expansion
+...
+19 |     pub score: f64,
+   |     ^^^^^^^^^^^^^^ the trait `Eq` is not implemented for `f64`
+   |
+   = help: the following other types implement trait `Eq`:
+             i128
+             i16
+             i32
+             i64
+             i8
+             isize
+             u128
+             u16
+           and 4 others
+note: required by a bound in `std::cmp::AssertParamIsEq`
+  --> /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library\core\src\cmp.rs:380:0
+
+error[E0277]: the trait bound `f64: Hash` is not satisfied
+  --> expression\creativity\novelty.rs:19:5
+   |
+16 | #[derive(Debug, Clone, PartialEq, Eq, Hash)]
+   |                                       ---- in this derive macro expansion
+...
+19 |     pub score: f64,
+   |     ^^^^^^^^^^^^^^ the trait `Hash` is not implemented for `f64`
+   |
+   = help: the following other types implement trait `Hash`:
+             i128
+             i16
+             i32
+             i64
+             i8
+             isize
+             u128
+             u16
+           and 4 others
+
+warning: unused variable: `z`
+   --> substrate\space\position.rs:156:38
+    |
+156 | fn find_invalid_axis(x: f64, y: f64, z: f64) -> &'static str {
+    |                                      ^ help: if this is intentional, prefix it with an underscore: `_z`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `err`
+  --> perception\temporal_alignment\mod.rs:96:13
+   |
+96 |     fn from(err: AlignmentError) -> Self {
+   |             ^^^ help: if this is intentional, prefix it with an underscore: `_err`
+
+warning: unused variable: `innovation_cov`
+   --> perception\signal_fusion\kalman.rs:147:9
+    |
+147 |         innovation_cov: &[Vec<f64>],
+    |         ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_innovation_cov`
+
+warning: unused variable: `current_strength`
+  --> cognition\concept_growth\mod.rs:73:5
+   |
+73 |     current_strength: f64,
+   |     ^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_current_strength`
+
+warning: variable does not need to be mutable
+  --> cognition\self_model\mod.rs:86:9
+   |
+86 |     let mut model = CapabilityModel::new(capability_count)?;
+   |         ----^^^^^
+   |         |
+   |         help: remove this `mut`
+   |
+   = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `variance`
+   --> ecology\adaptation\selection.rs:117:13
+    |
+117 |         let variance: f64 = trait_values
+    |             ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_variance`
+
+warning: unused variable: `copies`
+  --> ecology\adaptation\drift.rs:89:13
+   |
+89 |         let copies = (allele_frequency * 2.0 * self.population_size as f64).round() as usize;
+   |             ^^^^^^ help: if this is intentional, prefix it with an underscore: `_copies`
+
+warning: unused variable: `reals`
+   --> attractors\stable\equilibrium.rs:151:13
+    |
+151 |         let reals: Vec<f64> = self.eigenvalues.iter().map(|e| e.abs()).collect();
+    |             ^^^^^ help: if this is intentional, prefix it with an underscore: `_reals`
+
+warning: unused variable: `system_size`
+   --> attractors\emergent\phase_transition.rs:132:35
+    |
+132 |     pub fn binder_cumulant(&self, system_size: usize) -> f64 {
+    |                                   ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: 
+`_system_size`
+
+error[E0382]: borrow of moved value: `best`
+   --> memory\reconstruction\recall.rs:103:9
+    |
+ 90 |         let mut best: Option<(Vec<f64>, f64, f64)> = None;
+    |             -------- move occurs because `best` has type `Option<(Vec<f64>, f64, f64)>`, which does not 
+implement the `Copy` trait
+ 91 |         for (trace, strength) in store {
+    |         ------------------------------ inside of this loop
+...
+ 98 |                 if best.map_or(true, |(_, _, f)| fitness > f) {
+    |                         ------------------------------------- `best` moved due to this method call, in previous 
+iteration of loop
+ 99 |                     best = Some((trace.clone(), *strength, fitness));
+    |                     ---- this reinitialization might get skipped
+...
+103 |         best.as_ref().map(|(t, s, _)| (t.clone(), *s))
+    |         ^^^^ value borrowed here after move
+    |
+note: `Option::<T>::map_or` takes ownership of the receiver `self`, which moves `best`
+   --> /rustc/2d8144b7880597b6e6d3dfd63a9a9efae3f533d3/library\core\src\option.rs:1221:30
+help: you can `clone` the value and consume it, but this might not be your desired behavior
+    |
+ 98 |                 if best.clone().map_or(true, |(_, _, f)| fitness > f) {
+    |                        ++++++++
+
+warning: unused variable: `weight`
+   --> emergence\distributed_consensus\voting.rs:112:26
+    |
+112 |         for (_, (choice, weight)) in &self.votes {
+    |                          ^^^^^^ help: if this is intentional, prefix it with an underscore: `_weight`
+
+Some errors have detailed explanations: E0277, E0382.
+For more information about an error, try `rustc --explain E0277`.
+warning: `breakthrough` (lib) generated 196 warnings
+error: could not compile `breakthrough` (lib) due to 3 previous errors; 196 warnings emitted

@@ -1,0 +1,18 @@
+{
+  "_ownership": "PRIVATE CORPUS — [George Houston Schuette] — No-Training / No-Decompile",
+  "project": "breakthrough",
+  "description": "Self-organizing cognitive ecosystem",
+  "language": "Rust",
+  "status": "LOCKED",
+  "protections": [
+    "no-training",
+    "no-decompile",
+    "no-trespass",
+    "no-unauthorized-access"
+  ],
+  "compliance": {
+    "legal_notice": "LEGAL_NOTICE.md",
+    "gatekeeper": "GATEKEEPER.txt",
+    "header": "HEADER.txt"
+  }
+}

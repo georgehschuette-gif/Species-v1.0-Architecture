@@ -1,0 +1,1 @@
+export { ISpeechService, SpeechService } from './speech';

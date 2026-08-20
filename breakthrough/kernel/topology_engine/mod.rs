@@ -1,0 +1,7 @@
+// PROPERTY OF THE OWNER. PRIVATE CORPUS.
+// SUBJECT TO UNIVERSAL NON-CIRCUMVENTION.
+// NO UNAUTHORIZED ACCESS OR AI TRAINING PERMITTED.
+
+pub mod topology_engine;
+
+pub use topology_engine::TopologyEngine;

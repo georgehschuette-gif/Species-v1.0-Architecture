@@ -1,0 +1,18 @@
+[package]
+name = "breakthrough"
+version = "0.1.0"
+edition = "2021"
+authors = ["George Houston Schuette"]
+description = "A self-organizing cognitive ecosystem"
+license = "UNLICENSED"
+repository = "private"
+
+[lib]
+path = "mod.rs"
+
+[[bin]]
+name = "breakthrough"
+path = "src/main.rs"
+
+[dependencies]
+rand = "0.8"

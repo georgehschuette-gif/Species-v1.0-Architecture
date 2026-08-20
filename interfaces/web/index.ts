@@ -1,0 +1,1 @@
+export { IWebService, WebService } from './web';

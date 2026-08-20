@@ -1,0 +1,71 @@
+{
+  "ecosystem": {
+    "name": "Breakthrough Cognitive Ecosystem",
+    "version": "1.0.0",
+    "description": "Self-organizing cognitive ecosystem built on Kernel Technology",
+    "cargoManifest": "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Windsurf\\breakthrough\\Cargo.toml"
+  },
+  "kernel": {
+    "topologyNodeCount": 10,
+    "resonanceFrequency": 0.5,
+    "coherenceTarget": 0.8,
+    "schedulerMaxTicks": 1000,
+    "evolutionMutationRate": 0.01
+  },
+  "memory": {
+    "recallQuery": [
+      0.8,
+      0.2
+    ],
+    "recallThreshold": 0.65,
+    "reconstructionWindow": 0.5
+  },
+  "perception": {
+    "visualResolution": {
+      "width": 64,
+      "height": 64
+    },
+    "visualRefreshRateHz": 30.0,
+    "sensoryChannels": [
+      "visual",
+      "auditory",
+      "tactile",
+      "proprioceptive"
+    ]
+  },
+  "metaReason": {
+    "depth": 3,
+    "strategy": "Heuristic"
+  },
+  "reality": {
+    "measurementId": "cog-output-001",
+    "measurementScalar": 0.75,
+    "measurementUncertainty": 0.05,
+    "calibrationIterations": 100
+  },
+  "horizons": {
+    "explorationId": 1,
+    "explorationBearing": 0.0,
+    "explorationDepth": 100,
+    "discoveryId": 2,
+    "discoveryConfidence": 0.9,
+    "discoveryDistance": 10.0
+  },
+  "archives": {
+    "extinctSpecies": [
+      {
+        "id": 1,
+        "name": "Neanderthal",
+        "extinctionEra": "Pleistocene",
+        "recoveryPotential": 0.9,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "build": {
+    "configuration": "Release",
+    "target": "x86_64-pc-windows-msvc",
+    "logDir": "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Windsurf\\logs",
+    "artifactDir": "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Windsurf\\artifacts"
+  }
+}
