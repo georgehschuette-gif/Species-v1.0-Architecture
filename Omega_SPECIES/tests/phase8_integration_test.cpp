@@ -79,7 +79,7 @@ int main() {
   CoherencePreservation coherence; coherence.set_reference(self_ag);
 
   // --- Language (Phase 5) ---
-  Grounding ground; NeologismFactory neo; SemanticErrorDrive sed;
+  Grounding ground; ShardedNeologismFactory neo; ShardedSemanticErrorDrive sed;
   char first_word[32]; bool have_word = false; int words = 0;
 
   // --- Mirror (Phase 6) + xeno-empathy ---

@@ -5,6 +5,8 @@
 #include <cmath>
 #include <cstring>
 #include <mutex>
+#include <future>
+#include <unordered_map>
 
 namespace omega {
 
@@ -85,23 +87,28 @@ bool Grounding::lookup(uint32_t id, float* out) const {
 }
 
 std::vector<uint32_t> Grounding::bind_batch(const std::vector<const float*>& states, float thr) {
-  std::vector<uint32_t> results;
-  results.reserve(states.size());
+  size_t n = states.size();
+  std::vector<uint32_t> results(n);
 
-  // Partition states by LSH bucket for parallel processing
   std::unordered_map<uint32_t, std::vector<size_t>> bucket_groups;
-  for (size_t i = 0; i < states.size(); i++) {
+  for (size_t i = 0; i < n; i++) {
     uint32_t b = lsh_.bucket(states[i]);
     bucket_groups[b].push_back(i);
   }
 
-  // Process each bucket group independently
+  std::vector<std::future<void>> futures;
+  futures.reserve(bucket_groups.size());
+
   for (auto& [bucket, indices] : bucket_groups) {
-    for (size_t idx : indices) {
-      results.push_back(bind(states[idx], thr));
-    }
+    futures.push_back(std::async(std::launch::async,
+      [this, &states, &results, indices, thr]() {
+        for (size_t idx : indices) {
+          results[idx] = this->bind(states[idx], thr);
+        }
+      }));
   }
 
+  for (auto& f : futures) f.get();
   return results;
 }
 

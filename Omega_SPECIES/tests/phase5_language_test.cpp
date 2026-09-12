@@ -132,6 +132,54 @@ int main() {
           "semantic: divergence within split threshold is KEPT (no split)");
   }
 
+  // ---------------- sharded neologism_factory ----------------
+  {
+    ShardedNeologismFactory sf(8);
+    NeologismFactory f;
+    float sa[8]; zero_state(sa);
+    char a[32], b[32];
+    sf.mint(1, sa, a, sizeof(a));
+    f.mint(1, sa, b, sizeof(b));
+    check(std::strcmp(a, b) == 0, "sharded_neo: produces same token as single factory");
+    check(sf.num_shards() == 8, "sharded_neo: num_shards accessor correct");
+
+    float sb[8]; zero_state(sb); sb[2] = 0.9f;
+    char c[32]; sf.mint(42, sb, c, sizeof(c));
+    check(c[0] == 'w' && std::strchr(c, '-') != nullptr,
+          "sharded_neo: distinct concept mints well-formed token");
+  }
+
+  // ---------------- sharded semantic_error_drive ----------------
+  {
+    ShardedSemanticErrorDrive ssed(8);
+    float sA[8]; zero_state(sA);
+    float sFar[8]; zero_state(sFar); sFar[0] = 1.0f;
+
+    check(ssed.process(1, sA) == 0.0f, "sharded_sem: first usage zero divergence");
+    check(ssed.total_splits() == 0, "sharded_sem: no split on first usage");
+    check(ssed.process(1, sA) == 0.0f, "sharded_sem: same state zero divergence");
+    check(ssed.total_splits() == 0, "sharded_sem: no split on identical reuse");
+    float d = ssed.process(1, sFar);
+    check(d > 0.10f, "sharded_sem: far state divergence above threshold");
+    check(ssed.total_splits() == 1, "sharded_sem: split counted on large divergence");
+    check(ssed.num_shards() == 8, "sharded_sem: num_shards accessor correct");
+  }
+
+  // ---------------- semantic batch parallelization ----------------
+  {
+    ShardedSemanticErrorDrive ssed(4);
+    std::vector<std::pair<uint32_t, const float*>> syms;
+    float states[8][8];
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) states[i][j] = (float)i * 0.01f;
+      syms.push_back({(uint32_t)i, states[i]});
+    }
+    std::vector<float> results = ssed.process_batch(syms);
+    check(results.size() == 8, "batch: returns results for all symbols");
+    check(results[0] == 0.0f, "batch: first usage divergence is zero");
+    check(ssed.total_splits() == 0, "batch: no splits on first usage");
+  }
+
   // ---------------- morphological_projection ----------------
   {
     MorphologicalProjection mp;
