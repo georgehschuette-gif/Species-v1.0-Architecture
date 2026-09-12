@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-20T11:20:50.4469925-07:00",
+  "timestamp": "2026-08-20T12:51:02.0272380-07:00",
   "ecosystem": "Breakthrough Cognitive Ecosystem",
   "version": "1.0.0",
   "topology": {
@@ -17,39 +17,39 @@
   },
   "connections": [
     {
-      "from": "ResonanceEngine",
+      "type": "synchronization",
       "to": "CoherenceEngine",
-      "type": "synchronization"
+      "from": "ResonanceEngine"
     },
     {
-      "from": "EvolutionEngine",
+      "type": "feedback",
       "to": "ResonanceEngine",
-      "type": "feedback"
+      "from": "EvolutionEngine"
     },
     {
-      "from": "MemoryRecall",
+      "type": "retrieval",
       "to": "MetaReason",
-      "type": "retrieval"
+      "from": "MemoryRecall"
     },
     {
-      "from": "VisualStream",
+      "type": "sensory",
       "to": "Perception",
-      "type": "sensory"
+      "from": "VisualStream"
     },
     {
-      "from": "MetaReason",
+      "type": "directive",
       "to": "Exploration",
-      "type": "directive"
+      "from": "MetaReason"
     },
     {
-      "from": "Discovery",
+      "type": "preservation",
       "to": "Archives",
-      "type": "preservation"
+      "from": "Discovery"
     },
     {
-      "from": "Measurement",
+      "type": "reality-loop",
       "to": "Feedback",
-      "type": "reality-loop"
+      "from": "Measurement"
     }
   ]
 }
