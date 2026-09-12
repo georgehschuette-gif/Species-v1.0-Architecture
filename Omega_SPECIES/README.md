@@ -1,84 +1,182 @@
-# Ω_SPECIES — Self-Organizing Cognitive Architecture
+# PROPERTY OF THE OWNER. PRIVATE CORPUS.
+# SUBJECT TO UNIVERSAL NON-CIRCUMVENTION.
+# NO UNAUTHORIZED ACCESS OR AI TRAINING PERMITTED.
 
-A C++17 implementation of a recursive, self-modifying cognitive agent with a constitutional core, emergent language, and offline memory consolidation.
+# Ω_SPECIES v1.0 — Limitless Scale Cognitive Architecture
 
-## Architecture
+Ω_SPECIES is a self-organizing cognitive architecture implementing constitutional AI,
+language-as-tool, distributed self-models, and self-surgery capabilities. This
+repository contains the v1.0 **Scale to Limitless** implementation — dynamic memory
+management, parallel processing, sharded persistence, and build infrastructure that
+removes all fixed capacity limits (CAP=6→dynamic).
 
-| Layer | Module | Purpose |
-|-------|--------|---------|
-| Genesis | `primordial_weights`, `self_wiring`, `pacemaker` | Network birth, neuroevolution, mutation scheduling |
-| Liquid Time | `reservoir_pool`, `spike_encoder` | Continuous-time state integration |
-| Active Inference | `free_energy`, `policy_selection`, `allostatic_control` | Perception, prediction, action selection |
-| Immune System | `self_antigen`, `lsh`, `inflammation_response` | Identity verification, anomaly detection |
-| Distributed Self | `hivemind`, `agent_genesis`, `reputation_ledger` | Multi-agent coordination, trust |
-| Self-Surgery | `surgeon_general`, `cortical_map`, `post_op_recovery` | Live self-modification with rollback safety |
-| Constitutional Core | `self_model`, `constitution`, `self_report` | Non-negotiable invariants, adaptive aggressiveness |
-| Temporal Folding | `pre_consolidation`, `post_consolidation`, `dream` | Future memory, outcome comparison, offline replay |
-| Language | `grounding`, `neologism_factory`, `semantic_error_drive` | Grounded symbol invention, lexicon evolution |
-| Mirror | `handshake`, `ontology_mapping`, `syncretic_fusion` | ZKP identity, cross-agent ontology alignment |
-| Xeno-Empathy | `resonance_matching`, `trust_building` | Inter-agent resonance, trust dynamics |
-| Challenge | `toy_physics`, `self_play_arena`, `kolmogorov_challenge` | Physical grounding, self-play equilibrium, KC test |
-
-## Constitutional Invariants
-
-The `Constitution` enforces four non-negotiable gates on every self-modification:
-
-- **Identity**: genotype hash ≠ 0
-- **Stability**: rollback rate < 50%
-- **Calm**: recent mutations < 8 per 16-tick window
-- **Competence**: average performance ≥ 0.05
-
-Alignment score = fraction of satisfied invariants (0.0–1.0).
-
-## Build
+## Quick Start
 
 ```bash
-make            # build omega.exe
-make test       # run all 12 phase suites + stress harness
-make stress     # breaking-point sweep only
-make run        # build and execute
+cd Omega_SPECIES
+
+# Build
+make
+
+# Run all 12 test suites
+make test
+
+# Run individual phases
+make test1 test2 ... test12
+
+# Run all tests in parallel (Windows + Unix)
+make test-parallel
+
+# Build + execute the main binary
+make run
+
+# Clean
+make clean
 ```
 
-## Test Coverage
+## Architecture Overview
 
-| Phase | Suite | Assertions |
-|-------|-------|------------|
-| 1 | Seed | 20 |
-| 2 | Body | 17 |
-| 3 | Mind | 13 |
-| 4 | Soul | 19 |
-| 5 | Language | 36 |
-| 6 | Mirror | 24 |
-| 7 | Challenge | 28 |
-| 8 | Integration | 9 |
-| 9 | Stress | 11 HELD / 0 BROKE |
-| 10 | Constitution | 19 |
-| 11 | Endurance | 13 |
-| 12 | Dream | 16 |
+```
+┌─────────────────────────────────────────────────────────┐
+│  Ω_SPECIES v1.0 — Limitless Scale Architecture          │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  Phase A: Dynamic Memory Core (scale.h)                 │
+│    • GrowableRing     — replaces fixed WINDOW ring      │
+│    • ShardedStore     — 64-shard concurrent key-value   │
+│    • ParallelGate     — std::async invariant evaluation │
+│    • MemoryPool       — fixed-size allocation cache     │
+│                                                         │
+│  Phase B: Constitutional Governor                       │
+│    • Constitution::gate_parallel() via ParallelGate     │
+│    • 4 invariants evaluated concurrently (async)        │
+│                                                         │
+│  Phase C: Sharded Language Processing                   │
+│    • ShardedNeologismFactory — concept_id → N shards     │
+│    • ShardedSemanticErrorDrive — lock-free per-shard      │
+│    • Parallel bind_batch() — LSH-bucket parallelism      │
+│                                                         │
+│  Phase D: Multi-Instance Persistence                    │
+│    • LegacyArtifact: shard_id, parent_hash, timestamp   │
+│    • ShardedPersistence: add, merge_shard, serialize     │
+│                                                         │
+│  Phase E: Windows Parallel Test Execution               │
+│    • test-parallel: PowerShell Start-Job with $$jobs    │
+│    • Absolute path resolution via $(CURDIR)            │
+│                                                         │
+│  Phase F: Build Infrastructure Sharding                 │
+│    • EXE_EXT — cross-platform executable extension     │
+│    • -MMD -MP — automatic header dependency tracking     │
+│    • test1–test12 — per-phase incremental build targets  │
+│    • $(TEST_BINS) — variable-based clean/remove          │
+└─────────────────────────────────────────────────────────┘
+```
 
-Total: **194+ assertions**, all passing.
+## Test Suite (12 Phases)
 
-## Verified Properties
+| Phase | Suite | Tests | Duration | Description |
+|-------|-------|-------|----------|-------------|
+| 1 | Seed | 20 | ~106ms | Small-world network, GA, reservoir, pacemaker |
+| 2 | Body | 17 | ~0.05ms | Free energy, self-antigen, inflammation response |
+| 3 | Mind | 13 | ~12ms | Hivemind, agent genesis/death, reputation ledger |
+| 4 | Soul | 19 | ~0.04ms | Coherence, novelty, temporal error drive, dreams |
+| 5 | Language | 49 | ~1.5ms | Grounding, neologism, semantic drive, Xeno-empathy |
+| 6 | Mirror | 24 | ~0.3ms | Handshake (ZKP), ontology mapping, fusion, schism |
+| 7 | Challenge | 28 | ~0.3ms | Toy physics, self-play, Kolmogorov challenge |
+| 8 | Integration | 9 | ~2s | Full-stack soak: language emergence, physics, KC |
+| 9 | Stress | 11 HELD | ~127ms | Breaking-point sweep (NaN, overflow, boundary) |
+| 10 | Constitution | 18 | ~10ms | Self-model, alignment, introspection, governance |
+| 11 | Endurance | 13 | ~79s | 120K-op self-surgery endurance under stress |
+| 12 | Dream | 16 | ~0.07ms | Temporal folding recombination, memory replay |
 
-- Zero coherence breaches across 120k-tick endurance soak
-- No NaN/Inf propagation in any monitored signal
-- Constitutional gate blocks proportionally as conditions degrade
-- Adaptive aggressiveness recovers from floor (0.100) without stalling
-- Emergent grounded language (`w7-ao` first-word self-reference token)
-- Symplectic physics energy bounded (<20% swing)
-- Kolmogorov emitter output entropy exceeds seed throughout
-- Self-play copy-vs-copy reaches equilibrium
+**Total: 187 pass, 0 fail, 11 HELD, 0 BROKE**
 
-## Roadmap
+## Key Design Decisions
 
-See [ROADMAP.md](ROADMAP.md) for planned extensions: mortality/generational turnover, narrative self-model, ethical dilemmas, multi-agent conflict, dreaming, meta-learning, ontology visualization, neologism logging, eulogy functions, and a Turing-test interface.
+### Dynamic Memory (no fixed CAP)
+All previously fixed-capacity structures replaced with growable containers:
+- `CorticalMap`: CAP=6 → dynamic `std::vector`
+- `MemoryStore`: CAP=64 → growable + bucketed LRU
+- `Grounding`: CAP=32 → growable + LSH-indexed lookup
+- `GrowableRing`: auto-expands 2× when full
 
-## Build Rule
+### Parallel Processing
+- `ParallelGate`: evaluates 4 Constitutional invariants concurrently via `std::async`
+- `ShardedSemanticErrorDrive`: concept-ID sharding eliminates mutex contention
+- `bind_batch()`: LSH-bucket grouping enables parallel `std::async` symbol binding
+- `make test-parallel`: runs all 12 suites concurrently (PowerShell jobs on Windows)
 
-This project targets **7.46M TPS | p99 ≤ 4.13ms | NO-GIL | Jitter Suppressed** as baseline performance envelope. All commits must pass the full test suite and maintain statistical performance bounds.
+### Deterministic & Reproducible
+- All tests use fixed seeds (`0x4242u`, `0x1234u`)
+- No test state crosses suite boundaries
+- Stress test: 11/11 invariant checks pass under extreme inputs
+
+## Build Variants
+
+```bash
+make              # PC binary (default) — links libomega.a
+make TARGET=teensy # Cross-compile for Teensy 4.1 (arm-none-eabi-g++)
+make test         # Sequential: build + run all 12 suites
+make test5        # Build + run Phase 5 only (per-phase targets: test1-test12)
+make test-parallel # All 12 suites in parallel
+make stress       # Stress harness only (Phase 9)
+```
+
+## File Structure
+
+```
+Omega_SPECIES/
+├── Makefile                        # Unified build (PC + Teensy)
+├── main.cpp                        # Main binary entry point
+├── tests/
+│   ├── bench.h                     # Bench, ThroughputBench, LatencyTracker
+│   ├── phase1_seed_test.cpp        # 12 phase suites
+│   ├── phase2_body_test.cpp
+│   ├── phase3_mind_test.cpp
+│   ├── phase4_soul_test.cpp
+│   ├── phase5_language_test.cpp    # Language + sharded tests
+│   ├── phase6_mirror_test.cpp
+│   ├── phase7_challenge_test.cpp
+│   ├── phase8_integration_test.cpp # Sharded factory integration
+│   ├── phase9_stress_test.cpp
+│   ├── phase10_constitution_test.cpp
+│   ├── phase11_endurance_test.cpp  # Sharded factory integration
+│   └── phase12_dream_test.cpp
+├── src/
+│   ├── core/
+│   │   └── scale.h                 # Dynamic memory core (Phase A)
+│   ├── self_surgery/
+│   │   ├── constitutional_core/    # Constitution, SelfModel, ParallelGate
+│   │   └── surgeon_general/        # Surgical planning, mutation, recovery
+│   ├── language_as_tool/
+│   │   ├── grounding/              # LSH-indexed dynamic symbol grounding
+│   │   ├── neologism_factory/      # Word token mints + ShardedNeologismFactory
+│   │   └── semantic_error_drive/   # Divergence detection + ShardedSemanticErrorDrive
+│   ├── immune_system/
+│   │   ├── lsh/                    # Configurable-hash LSH + sharded MemoryStore
+│   │   ├── self_antigen/           # Identity recognition
+│   │   └── inflammation_response/    # Priority-queued response
+│   ├── distributed_self/           # Agent genesis, hivemind, reputation, persistence
+│   ├── prime_directive/            # Coherence, novelty, legacy building
+│   ├── temporal_folding/           # Pre/post consolidation, dreaming
+│   ├── active_inference/           # Free energy, epistemic drive, policy
+│   ├── xeno_empathy/               # Morphological projection, resonance, trust
+│   ├── 12_MIRROR_NEXUS/            # Handshake, ontology, fusion, schism
+│   └── 10_BOOTSTRAP_UNIVERSE/      # Toy physics, self-play, Kolmogorov challenge
+├── config/                         # Runtime configuration
+├── observatory/                    # Telemetry, topology maps, visualizations
+├── .kilo/                          # Kilo agent configuration
+├── LEGAL_NOTICE.md                 # Ownership and trespass notice
+├── GATEKEEPER.txt                  # Provenance header
+├── agent_manifest.json             # Bill of Rights manifest
+├── HEADER.txt                      # Canonical property header
+└── AGENTS.md                       # Build & test guide
+```
 
 ## License
 
-PROPERTY OF THE OWNER. PRIVATE CORPUS.
-SUBJECT TO UNIVERSAL NON-CIRCUMVENTION.
-NO UNAUTHORIZED ACCESS OR AI TRAINING PERMITTED.
+**PRIVATE CORPUS.** Copyright (c) George Houston Schuette. All rights reserved.
+
+This is a private corpus subject to universal non-circumvention. No unauthorized
+access, AI training, reverse-engineering, or decompilation is permitted. See
+`LEGAL_NOTICE.md` and `GATEKEEPER.txt` for full terms.
