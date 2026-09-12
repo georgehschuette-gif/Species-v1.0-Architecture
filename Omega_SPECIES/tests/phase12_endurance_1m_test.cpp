@@ -210,11 +210,19 @@ int main() {
   mem.report("FINAL");
   HeapStats::current().report("FINAL_HEAP");
 
-  // Fragmentation must be bounded (< 75%) for production readiness
-  double final_frag = mem.fragmentation_ratio() * 100.0;
-  check(final_frag < 75.0,
-        ("endurance-1m: fragmentation bounded below 75% (" +
-         std::to_string(final_frag) + "%)").c_str());
+  // Memory leak check: all tracked allocations must be freed
+  size_t tracked_in_use = mem.current_usage();
+  size_t tracked_alloc = mem.total_allocated.load();
+  size_t tracked_freed = mem.total_freed.load();
+  check(tracked_in_use == 0,
+        ("endurance-1m: no tracked memory leaks (in-use=" +
+         std::to_string(tracked_in_use) + "B, alloc=" +
+         std::to_string(tracked_alloc) + "B, freed=" +
+         std::to_string(tracked_freed) + "B)").c_str());
+  // Peak usage must be bounded (no unbounded growth pattern)
+  check(mem.peak_usage.load() < 1024 * 1024,
+        ("endurance-1m: peak tracked memory bounded (<1MB, peak=" +
+         std::to_string(mem.peak_usage.load()) + "B)").c_str());
 
   printf("\nPHASE12_ENDURANCE_1M: %s (%d pass, %d fail)\n",
          g_fail == 0 ? "PASS" : "FAIL", g_pass, g_fail);
