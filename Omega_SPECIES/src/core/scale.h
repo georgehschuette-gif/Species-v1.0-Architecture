@@ -34,13 +34,14 @@ public:
         : buf_(initial_cap), capacity_(initial_cap) {}
 
     void push(const T& val) {
+        size_t c = count_.load(std::memory_order_acquire);
+        if (c >= capacity_) {
+            grow_locked();
+        }
         size_t h = head_.load(std::memory_order_relaxed);
         buf_[h % capacity_] = val;
         head_.store(h + 1, std::memory_order_release);
         count_.fetch_add(1, std::memory_order_acq_rel);
-        if (count_.load(std::memory_order_acquire) > capacity_) {
-            grow_locked();
-        }
     }
 
     size_t size() const { return count_.load(std::memory_order_acquire); }
@@ -81,7 +82,7 @@ private:
         std::vector<std::pair<K, V>> entries;
         mutable std::mutex mutex;
         size_t capacity;
-        size_t hits;
+        mutable size_t hits;
         explicit Shard(size_t cap = 256) : capacity(cap), hits(0) {}
     };
 

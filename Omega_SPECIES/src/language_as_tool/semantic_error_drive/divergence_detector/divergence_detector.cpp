@@ -1,6 +1,7 @@
 #include "divergence_detector.h"
 #include <cmath>
 #include <cstring>
+#include <limits>
 
 namespace omega {
 
@@ -10,7 +11,9 @@ float DivergenceDetector::dist(const float* a, const float* b) {
     float d = a[i] - b[i];
     s += d * d;
   }
-  return std::sqrt(s);
+  float result = std::sqrt(s);
+  if (!std::isfinite(result)) result = std::numeric_limits<float>::max();
+  return result;
 }
 
 int DivergenceDetector::find(uint32_t id) const {
@@ -20,6 +23,8 @@ int DivergenceDetector::find(uint32_t id) const {
 }
 
 float DivergenceDetector::record(uint32_t id, const float* state, float tolerance) {
+  for (int i = 0; i < D; i++)
+    if (!std::isfinite(state[i])) return 0.0f;
   int i = find(id);
   if (i < 0) {
     int k = 0;

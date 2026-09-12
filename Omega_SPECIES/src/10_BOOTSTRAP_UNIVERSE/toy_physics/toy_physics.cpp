@@ -1,6 +1,7 @@
 #include "toy_physics.h"
 #include <cmath>
 #include <cstring>
+#include <cfloat>
 
 namespace omega {
 
@@ -12,6 +13,12 @@ void ToyPhysics::reset() {
 
 int ToyPhysics::add_body(float x, float y, float vx, float vy, float mass) {
   if (n_ >= MAX) return -1;
+  if (!std::isfinite(mass) || mass <= 0.0f) mass = 1.0f;
+  const float MAX_VAL = 1e6f;
+  if (!std::isfinite(x) || std::abs(x) > MAX_VAL) x = 0.0f;
+  if (!std::isfinite(y) || std::abs(y) > MAX_VAL) y = 0.0f;
+  if (!std::isfinite(vx) || std::abs(vx) > MAX_VAL) vx = 0.0f;
+  if (!std::isfinite(vy) || std::abs(vy) > MAX_VAL) vy = 0.0f;
   Body& b = b_[n_];
   b.x = x; b.y = y; b.vx = vx; b.vy = vy; b.mass = mass;
   return n_++;
@@ -23,11 +30,11 @@ void ToyPhysics::step(float dt) {
   for (int i = 0; i < n_; i++) {
     float axi = fx_, ayi = fy_;
     for (int j = 0; j < n_; j++) {
-      if (i == j) continue;
-      float dx = b_[j].x - b_[i].x;
-      float dy = b_[j].y - b_[i].y;
-      float r2 = dx * dx + dy * dy;
-      if (r2 < 1e-6f) r2 = 1e-6f;
+       if (i == j) continue;
+       float dx = b_[j].x - b_[i].x;
+       float dy = b_[j].y - b_[i].y;
+       float r2 = dx * dx + dy * dy;
+       if (!std::isfinite(r2) || r2 < 1e-6f) r2 = 1e-6f;
       float r = std::sqrt(r2);
       float f = G * b_[j].mass / (r2 * r);  // |a| = G*m_j / r^2, direction (dx,dy)/r
       axi += f * dx;

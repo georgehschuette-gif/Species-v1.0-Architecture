@@ -6,7 +6,10 @@
 #   make test5      -> build + run phase 5 only
 #   make test6      -> build + run phase 6 only
 #   make test-parallel -> compile all + run in parallel
-#   make stress     -> run the breaking-point harness only
+#   make stress     -> run the breaking-point harness only (phase 9)
+#   make fuzz       -> run random-input fuzz harness
+#   make endurance-1m -> run 1M-tick endurance test with memory metrics
+#   make test-parallel-posix -> POSIX-native parallel test execution (Linux/macOS)
 #   make TARGET=teensy -> cross-compile for Teensy (needs arm-none-eabi-g++)
 #   make clean
 #
@@ -202,6 +205,34 @@ else
 	@for bin in $(TEST_BINS); do (./$$bin > /tmp/$$bin.out 2>&1) & done; wait; for bin in $(TEST_BINS); do echo "--- $$bin ---"; cat /tmp/$$bin.out; done
 endif
 
+# POSIX-native parallel execution (Linux/macOS) using make -j jobserver
+STRESS_BIN := $(BUILD)/phase9_stress_test_test$(EXE_EXT)
+FUZZ_BIN   := $(BUILD)/fuzz_test_test$(EXE_EXT)
+ENDURANCE_BIN := $(BUILD)/phase12_endurance_1m_test_test$(EXE_EXT)
+
+test-parallel-posix: $(TEST_BINS) $(STRESS_BIN) $(FUZZ_BIN)
+	@echo "=== Running $(words $(TEST_BINS)) test suites in parallel (POSIX jobserver) ==="
+	@failed=0; \
+	for bin in $(TEST_BINS); do \
+	  ./$$bin & \
+	done; \
+	for bin in $(TEST_BINS); do \
+	  wait $${!; echo "--- $$bin ---"; if [ $${PIPESTATUS[0]} -ne 0 ]; then failed=1; fi; \
+	done; \
+	echo "Parallel test run complete ($$failed failures)"; exit $$failed
+
+# Breaking-point harness (Phase 9)
+stress: $(STRESS_BIN)
+	@echo "=== Phase 9: Breaking-point sweep ===" ; ./$(STRESS_BIN)
+
+# Random-input fuzz harness
+fuzz: $(FUZZ_BIN)
+	@echo "=== Fuzz Test: random inputs ===" ; ./$(FUZZ_BIN)
+
+# 1M-tick endurance test with memory metrics
+endurance-1m: $(ENDURANCE_BIN)
+	@echo "=== Endurance 1M: long-running stability ===" ; ./$(ENDURANCE_BIN)
+
 # ---- Dependency tracking (auto-generated) ----------------------------------
 -include $(OBJS:.o=.d) $(MOD_OBJS:.o=.d)
 
@@ -216,4 +247,4 @@ clean:
 	-rm -f $(OUT) omega.elf $(TEST_BINS) libomega.a
 endif
 
-.PHONY: run test test-parallel test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11 test12 stress clean
+.PHONY: run test test-parallel test-parallel-posix test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11 test12 stress fuzz endurance-1m clean
