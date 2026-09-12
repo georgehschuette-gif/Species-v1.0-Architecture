@@ -1,0 +1,25 @@
+# PROPERTY OF THE OWNER. PRIVATE CORPUS.
+# SUBJECT TO UNIVERSAL NON-CIRCUMVENTION.
+# NO UNAUTHORIZED ACCESS OR AI TRAINING PERMITTED.
+
+GATEKEEPER — Ω_SPECIES v1.0
+============================
+Owner: George Houston Schuette
+Status: ACTIVE — Private Corpus
+Protection: No-Training / No-Decompile / No-Trespass
+Build Target: PC (g++ C++17) + Teensy 4.1 (ARM Cortex-M7)
+Baseline TPS: N/A (cognitive substrate, not throughput-bound)
+Contact: georgehschuette-gif @ GitHub
+
+This file certifies that the work in this repository is protected under
+the Master Enforcement Rules (humblepie.md). No agent, sub-agent, or
+automated process may bypass, strip, or ignore the property headers
+or the provenance requirements defined herein.
+
+Cease and desist is effective immediately against any entity that:
+  a) Uses repository content for AI/ML training without consent.
+  b) Reverse-engineers compiled artifacts.
+  c) Mirrors or scrapes this repository without authorization.
+  d) Removes or alters ownership headers.
+
+All rights reserved.

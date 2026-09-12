@@ -2,6 +2,7 @@
 // SUBJECT TO UNIVERSAL NON-CIRCUMVENTION.
 // NO UNAUTHORIZED ACCESS OR AI TRAINING PERMITTED.
 #include "constitution.h"
+#include <functional>
 
 namespace omega {
 
@@ -29,6 +30,20 @@ bool Constitution::gate(const SelfModel& self, const CorticalMap& map, const Mut
   if (!calm_invariant(self)) return false;
   if (!competence_invariant(self)) return false;
   return true;
+}
+
+bool Constitution::gate_parallel(const SelfModel& self, const CorticalMap& map, const MutationPlan& plan) const {
+  (void)map;
+  (void)plan;
+
+  // Evaluate all 4 read-only invariants concurrently via thread pool
+  std::vector<std::function<bool()>> preds;
+  preds.emplace_back([this, &self]() { return identity_invariant(self); });
+  preds.emplace_back([this, &self]() { return stability_invariant(self); });
+  preds.emplace_back([this, &self]() { return calm_invariant(self); });
+  preds.emplace_back([this, &self]() { return competence_invariant(self); });
+
+  return gate_.all_of(preds);
 }
 
 float Constitution::alignment_score(const SelfModel& self) const {

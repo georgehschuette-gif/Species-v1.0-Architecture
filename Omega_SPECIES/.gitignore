@@ -1,0 +1,23 @@
+# PROPERTY OF THE OWNER. PRIVATE CORPUS.
+# SUBJECT TO UNIVERSAL NON-CIRCUMVENTION.
+# NO UNAUTHORIZED ACCESS OR AI TRAINING PERMITTED.
+
+# Build artifacts
+build/
+*.exe
+*.exe~
+*.dll
+*.o
+*.a
+*.so
+*.dylib
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS files
+.DS_Store
+Thumbs.db

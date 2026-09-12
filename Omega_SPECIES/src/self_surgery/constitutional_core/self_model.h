@@ -1,16 +1,22 @@
 // PROPERTY OF THE OWNER. PRIVATE CORPUS.
 // SUBJECT TO UNIVERSAL NON-CIRCUMVENTION.
 // NO UNAUTHORIZED ACCESS OR AI TRAINING PERMITTED.
+// PROPERTY OF THE OWNER. PRIVATE CORPUS.
+// SUBJECT TO UNIVERSAL NON-CIRCUMVENTION.
+// NO UNAUTHORIZED ACCESS OR AI TRAINING PERMITTED.
 #pragma once
 #include <cstdint>
+#include "core/scale.h"
 #include "../surgeon_general/cortical_map.h"
 #include "../surgeon_general/mutation_priority.h"
 
 namespace omega {
 
+// Growable self-model with dynamic ring buffer for mutation tracking.
+// WINDOW replaced with GrowableRing<uint8_t> — no hard ceiling.
 class SelfModel {
  public:
-  static constexpr int WINDOW = 16;
+  static constexpr int WINDOW = 16;  // initial capacity (now growable)
 
   void snapshot(const CorticalMap& map, const Network& identity_net);
   void record_mutation(int kind);
@@ -31,9 +37,7 @@ class SelfModel {
   int skipped_ = 0;
   uint32_t identity_hash_ = 0;
   uint32_t tick_ = 0;
-  uint8_t recent_[WINDOW] = {0};
-  int recent_pos_ = 0;
-  int recent_count_ = 0;
+  core::GrowableRing<uint8_t> recent_{WINDOW};
 };
 
 }  // namespace omega

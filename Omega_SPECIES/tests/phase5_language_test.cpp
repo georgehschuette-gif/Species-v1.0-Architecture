@@ -67,16 +67,16 @@ int main() {
     check(std::fabs(Grounding::dist(a, b) - 3.0f) < 1e-5f,
           "grounding: dist is Euclidean norm");
 
-    // Capacity cap: CAP=32. After filling, a new state returns 0.
+    // Dynamic growth: no CAP limit. Can bind more than 32 entries.
     Grounding gc;
     int minted = 0;
-    for (int k = 0; k < Grounding::CAP + 4; k++) {
+    for (int k = 0; k < 64; k++) {  // beyond old CAP=32 — should grow dynamically
       float s[8]; zero_state(s); s[0] = (float)(k + 1) * 10.0f;
       uint32_t id = gc.bind(s);
       if (id != 0) minted++;
     }
-    check(minted == Grounding::CAP, "grounding: table capped at CAP entries");
-    check(gc.count() == Grounding::CAP, "grounding: count never exceeds CAP");
+    check(minted == 64, "grounding: dynamic growth — all 64 concepts bound");
+    check(gc.count() == 64, "grounding: count reflects dynamic growth (no CAP)");
   }
 
   // ---------------- neologism_factory ----------------

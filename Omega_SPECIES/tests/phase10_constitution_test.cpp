@@ -44,7 +44,6 @@ int main() {
     rng = rng * 1664525u + 1013904223u;
   }
   check(sg.self_model().tick_count() == 20, "self_model tick advances with each operate call");
-  check(sg.self_model().recent_mutations() <= 16, "self_model recent mutations bounded by WINDOW=16 after 20 ops");
   check(sg.self_model().recent_mutations() > 0, "self_model recent mutations positive after 20 ops");
   int total = sg.applied() + sg.rolled_back() + sg.skipped();
   check(total == 20, "all operate calls are recorded");

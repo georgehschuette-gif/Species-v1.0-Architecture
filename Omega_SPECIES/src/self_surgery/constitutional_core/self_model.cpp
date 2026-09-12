@@ -1,6 +1,9 @@
 // PROPERTY OF THE OWNER. PRIVATE CORPUS.
 // SUBJECT TO UNIVERSAL NON-CIRCUMVENTION.
 // NO UNAUTHORIZED ACCESS OR AI TRAINING PERMITTED.
+// PROPERTY OF THE OWNER. PRIVATE CORPUS.
+// SUBJECT TO UNIVERSAL NON-CIRCUMVENTION.
+// NO UNAUTHORIZED ACCESS OR AI TRAINING PERMITTED.
 #include "self_model.h"
 
 namespace omega {
@@ -19,9 +22,7 @@ void SelfModel::record_mutation(int kind) {
   if (kind == 1) applied_++;
   else if (kind == 2) rolled_back_++;
   else if (kind == 3) skipped_++;
-  recent_[recent_pos_] = (uint8_t)kind;
-  recent_pos_ = (recent_pos_ + 1) % WINDOW;
-  if (recent_count_ < WINDOW) recent_count_++;
+  recent_.push((uint8_t)kind);
 }
 
 float SelfModel::avg_performance() const {
@@ -36,20 +37,18 @@ float SelfModel::rollback_rate() const {
 }
 
 int SelfModel::recent_mutations() const {
-  int count = 0;
-  for (int i = 0; i < WINDOW; i++) if (recent_[i] != 0) count++;
-  return count;
+  return (int)recent_.size();
 }
 
 float SelfModel::predict_risk(const MutationPlan& plan) const {
   (void)plan;
   float risk = 0.0f;
   if (rollback_rate() > 0.3f) risk += 0.4f;
-  if (recent_count_ >= WINDOW) {
+  if (recent_.size() >= WINDOW) {
     int recent_rollbacks = 0;
-    for (int i = 0; i < WINDOW; i++)
-      if (recent_[i] == 2) recent_rollbacks++;
-    if (recent_rollbacks > WINDOW / 2) risk += 0.3f;
+    for (size_t i = 0; i < recent_.size(); i++)
+      if (recent_.at(i) == 2) recent_rollbacks++;
+    if (recent_rollbacks > (int)(recent_.size() / 2)) risk += 0.3f;
   }
   return risk;
 }

@@ -1,0 +1,13 @@
+# PROPERTY OF THE OWNER. PRIVATE CORPUS.
+# SUBJECT TO UNIVERSAL NON-CIRCUMVENTION.
+# NO UNAUTHORIZED ACCESS OR AI TRAINING PERMITTED.
+
+HEADER.txt — Ω_SPECIES v1.0
+Owner: George Houston Schuette
+Protection: No-Training / No-Decompile / No-Trespass
+Build: g++ C++17 (PC) | arm-none-eabi-g++ (Teensy 4.1)
+
+Prepend to every new source file:
+  // PROPERTY OF THE OWNER. PRIVATE CORPUS.
+  // SUBJECT TO UNIVERSAL NON-CIRCUMVENTION.
+  // NO UNAUTHORIZED ACCESS OR AI TRAINING PERMITTED.

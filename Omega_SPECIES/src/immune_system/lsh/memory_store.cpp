@@ -1,64 +1,60 @@
+// PROPERTY OF THE OWNER. PRIVATE CORPUS.
+// SUBJECT TO UNIVERSAL NON-CIRCUMVENTION.
+// NO UNAUTHORIZED ACCESS OR AI TRAINING PERMITTED.
 #include "memory_store.h"
 #include <cstring>
+#include <mutex>
 
 namespace omega {
 
-void MemoryStore::init(const LSH* lsh, float decay_per_step, float consolidate_thr) {
+void MemoryStore::init(const LSH* lsh, float decay_per_step, float consolidate_thr,
+                       size_t initial_cap) {
   lsh_ = lsh;
   decay_ = decay_per_step;
   consol_thr_ = consolidate_thr;
-  for (int i = 0; i < CAP; i++) {
-    mem_[i].used = false;
-    mem_[i].strength = 0.0f;
-    mem_[i].bucket = 0;
-    mem_[i].tag = 0;
-  }
+  mem_.clear();
+  mem_.reserve(initial_cap);
 }
 
-int MemoryStore::count() const {
-  int c = 0;
-  for (int i = 0; i < CAP; i++)
-    if (mem_[i].used) c++;
-  return c;
+int MemoryStore::find_slot(uint32_t tag, uint32_t /*bucket*/) const {
+  for (size_t i = 0; i < mem_.size(); i++)
+    if (mem_[i].used && mem_[i].tag == tag) return (int)i;
+  return -1;
 }
 
 void MemoryStore::store(uint32_t tag, const float* vec, float init_strength) {
   if (!lsh_) return;
   uint32_t b = lsh_->bucket(vec);
+  std::unique_lock<std::shared_mutex> lk(mutex_);
 
-  // Strengthen an existing memory with the same tag.
-  for (int i = 0; i < CAP; i++) {
-    if (mem_[i].used && mem_[i].tag == tag) {
-      mem_[i].strength += init_strength;
-      if (mem_[i].strength > 10.0f) mem_[i].strength = 10.0f;
-      memcpy(mem_[i].vec, vec, sizeof(float) * V);
-      return;
-    }
+  int idx = find_slot(tag, b);
+  if (idx >= 0) {
+    mem_[idx].strength += init_strength;
+    if (mem_[idx].strength > 10.0f) mem_[idx].strength = 10.0f;
+    memcpy(mem_[idx].vec, vec, sizeof(float) * V);
+    mem_[idx].access_counter = next_access_++;
+    return;
   }
 
-  // Find a free slot near the bucket; else evict the weakest.
-  int idx = -1;
-  for (int i = 0; i < CAP; i++) {
-    int probe = (int)((b + i) % CAP);
-    if (!mem_[probe].used) {
-      idx = probe;
-      break;
-    }
-  }
-  if (idx < 0) {
-    idx = 0;
-    for (int i = 1; i < CAP; i++)
-      if (mem_[i].strength < mem_[idx].strength) idx = i;
+  if (mem_.empty() || mem_.size() < mem_.capacity()) {
+    mem_.emplace_back();
+    idx = (int)(mem_.size() - 1);
+  } else {
+    // Grow the vector (replaces fixed CAP eviction)
+    mem_.emplace_back();
+    idx = (int)(mem_.size() - 1);
   }
   mem_[idx].used = true;
   mem_[idx].bucket = b;
   mem_[idx].tag = tag;
   memcpy(mem_[idx].vec, vec, sizeof(float) * V);
   mem_[idx].strength = init_strength;
+  mem_[idx].access_counter = next_access_++;
 }
 
 float MemoryStore::recall(uint32_t tag, float* out) const {
-  for (int i = 0; i < CAP; i++) {
+  std::shared_lock<std::shared_mutex> lk(mutex_);
+  for (size_t i = 0; i < mem_.size(); i++) {
     if (mem_[i].used && mem_[i].tag == tag) {
       if (out) memcpy(out, mem_[i].vec, sizeof(float) * V);
       return mem_[i].strength;
@@ -68,7 +64,8 @@ float MemoryStore::recall(uint32_t tag, float* out) const {
 }
 
 void MemoryStore::decay_all(float dt) {
-  for (int i = 0; i < CAP; i++) {
+  std::unique_lock<std::shared_mutex> lk(mutex_);
+  for (size_t i = 0; i < mem_.size(); i++) {
     if (!mem_[i].used) continue;
     mem_[i].strength *= (1.0f - decay_ * dt);
     if (mem_[i].strength < 0.001f) mem_[i].used = false;
@@ -76,8 +73,9 @@ void MemoryStore::decay_all(float dt) {
 }
 
 int MemoryStore::prune(float min_strength) {
+  std::unique_lock<std::shared_mutex> lk(mutex_);
   int removed = 0;
-  for (int i = 0; i < CAP; i++) {
+  for (size_t i = 0; i < mem_.size(); i++) {
     if (mem_[i].used && mem_[i].strength < min_strength) {
       mem_[i].used = false;
       removed++;
@@ -87,17 +85,27 @@ int MemoryStore::prune(float min_strength) {
 }
 
 void MemoryStore::consolidate_to(MemoryStore& dst) const {
-  for (int i = 0; i < CAP; i++) {
+  std::shared_lock<std::shared_mutex> lk(mutex_);
+  for (size_t i = 0; i < mem_.size(); i++) {
     if (mem_[i].used && mem_[i].strength >= consol_thr_) {
       dst.store(mem_[i].tag, mem_[i].vec, mem_[i].strength * 0.5f);
     }
   }
 }
 
+int MemoryStore::count() const {
+  std::shared_lock<std::shared_mutex> lk(mutex_);
+  int c = 0;
+  for (size_t i = 0; i < mem_.size(); i++)
+    if (mem_[i].used) c++;
+  return c;
+}
+
 float MemoryStore::avg_strength() const {
+  std::shared_lock<std::shared_mutex> lk(mutex_);
   float s = 0.0f;
   int c = 0;
-  for (int i = 0; i < CAP; i++)
+  for (size_t i = 0; i < mem_.size(); i++)
     if (mem_[i].used) {
       s += mem_[i].strength;
       c++;

@@ -54,14 +54,14 @@ int main() {
           all_ok ? "no overrun" : "writes past n (buffer overflow for small n)");
   }
 
-  // 2) Grounding capacity cap.
+  // 2) Grounding dynamic growth — no CAP limit.
   {
     Grounding g; float s[8]; int added = 0;
-    for (int k = 0; k < Grounding::CAP + 5; k++) {
+    for (int k = 0; k < 128; k++) {  // well beyond old CAP=32 — grows dynamically
       for (int i = 0; i < 8; i++) s[i] = (float)(k + 1) * 10.0f;
       if (g.bind(s)) added++;
     }
-    probe("grounding caps at CAP=32", added == Grounding::CAP,
+    probe("grounding grows dynamically (no CAP)", added == 128,
           ("added " + std::to_string(added)).c_str());
   }
 

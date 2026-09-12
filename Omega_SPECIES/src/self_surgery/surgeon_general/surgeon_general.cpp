@@ -6,6 +6,8 @@
 
 namespace omega {
 
+static constexpr int INITIAL_MODULES = 6;  // seed count (now growable beyond this)
+
 void SurgeonGeneral::adapt() {
   float rb = self_.rollback_rate();
   float block_rate = constitutional_blocks_ > 0 ? (float)constitutional_blocks_ / (float)(applied_ + rolled_back_ + skipped_ + constitutional_blocks_) : 0.0f;
@@ -20,9 +22,10 @@ void SurgeonGeneral::adapt() {
 }
 
 void SurgeonGeneral::seed_modules(const Network& base) {
+  map.reserve(INITIAL_MODULES);
   float train[5] = {0.15f, 0.40f, 0.65f, 0.90f, 0.30f};
   uint32_t s = 0x5EEDu;
-  for (int i = 0; i < CorticalMap::CAP; i++) {
+  for (int i = 0; i < INITIAL_MODULES; i++) {
     Network m;
     pw_copy(&m, &base);
     for (uint16_t e = 0; e < m.n_edges; e++) {
@@ -54,7 +57,7 @@ int SurgeonGeneral::operate(uint32_t rng, uint32_t tick) {
     return 0;
   }
 
-  if (!const_.gate(self_, map, mp)) {
+  if (!const_.gate_parallel(self_, map, mp)) {
     constitutional_blocks_++;
     skipped_++;
     self_.record_mutation(3);

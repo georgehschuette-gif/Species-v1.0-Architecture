@@ -12,9 +12,10 @@
 # lists, no redundant relinking of module code.
 
 CXX      ?= g++
-CXXFLAGS ?= -std=c++17 -O2 -Wall -Wextra -Isrc \
-             -Isrc/platform -Isrc/heartbeat -Isrc/prime_directive \
-             -Isrc/genesis -Isrc/liquid_time
+  CXXFLAGS ?= -std=c++17 -O2 -Wall -Wextra -Isrc \
+              -Isrc/platform -Isrc/heartbeat -Isrc/prime_directive \
+              -Isrc/genesis -Isrc/liquid_time -Isrc/core \
+              -pthread
 TARGET   ?= pc
 OUT      ?= omega.exe
 
@@ -113,7 +114,7 @@ MOD_OBJS := $(filter-out $(BUILD)/main.o,$(OBJS))
 LIB := $(BUILD)/libomega.a
 
 $(OUT): $(BUILD)/main.o $(LIB)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $@ $^ -pthread
 
 $(LIB): $(MOD_OBJS)
 	$(AR) rcs $@ $^
@@ -129,36 +130,40 @@ $(BUILD)/%.o: %.c
 run: $(OUT)
 	./$(OUT)
 
-# ---- Test harness ------------------------------------------------------
-test: $(LIB)
-	$(CXX) $(CXXFLAGS) -Itests tests/phase1_seed_test.cpp $(LIB) -o phase1_test.exe
-	./phase1_test.exe
-	$(CXX) $(CXXFLAGS) -Itests tests/phase2_body_test.cpp $(LIB) -o phase2_test.exe
-	./phase2_test.exe
-	$(CXX) $(CXXFLAGS) -Itests tests/phase3_mind_test.cpp $(LIB) -o phase3_test.exe
-	./phase3_test.exe
-	$(CXX) $(CXXFLAGS) -Itests tests/phase4_soul_test.cpp $(LIB) -o phase4_test.exe
-	./phase4_test.exe
-	$(CXX) $(CXXFLAGS) -Itests tests/phase5_language_test.cpp $(LIB) -o phase5_test.exe
-	./phase5_test.exe
-	$(CXX) $(CXXFLAGS) -Itests tests/phase6_mirror_test.cpp $(LIB) -o phase6_test.exe
-	./phase6_test.exe
-	$(CXX) $(CXXFLAGS) -Itests tests/phase7_challenge_test.cpp $(LIB) -o phase7_test.exe
-	./phase7_test.exe
-	$(CXX) $(CXXFLAGS) -Itests tests/phase8_integration_test.cpp $(LIB) -o phase8_test.exe
-	./phase8_test.exe
-	$(CXX) $(CXXFLAGS) -Itests tests/phase9_stress_test.cpp $(LIB) -o phase9_stress.exe
-	./phase9_stress.exe
-	$(CXX) $(CXXFLAGS) -Itests tests/phase10_constitution_test.cpp $(LIB) -o phase10_constitution_test.exe
-	./phase10_constitution_test.exe
-	$(CXX) $(CXXFLAGS) -Itests tests/phase11_endurance_test.cpp $(LIB) -o phase11_endurance_test.exe
-	./phase11_endurance_test.exe
-	$(CXX) $(CXXFLAGS) -Itests tests/phase12_dream_test.cpp $(LIB) -o phase12_dream_test.exe
-	./phase12_dream_test.exe
+# ---- Test targets ----------------------------------------------------------
+# Compile all test binaries first, then run with parallelism.
+# test: sequential (backward compatible)
+# test-parallel: compiles all + runs in parallel via xargs/make -j
 
-stress: $(LIB)
-	$(CXX) $(CXXFLAGS) -Itests tests/phase9_stress_test.cpp $(LIB) -o phase9_stress.exe
-	./phase9_stress.exe
+TEST_SRCS := tests/phase1_seed_test.cpp tests/phase2_body_test.cpp \
+             tests/phase3_mind_test.cpp tests/phase4_soul_test.cpp \
+             tests/phase5_language_test.cpp tests/phase6_mirror_test.cpp \
+             tests/phase7_challenge_test.cpp tests/phase8_integration_test.cpp \
+             tests/phase9_stress_test.cpp tests/phase10_constitution_test.cpp \
+             tests/phase11_endurance_test.cpp tests/phase12_dream_test.cpp
+
+TEST_BINS := $(TEST_SRCS:tests/%.cpp=build/$(TARGET)/%_test)
+
+$(BUILD)/%_test: tests/%.cpp $(LIB)
+	@$(MKDIR)
+	$(CXX) $(CXXFLAGS) -Itests $< $(LIB) -o $@ -pthread
+
+# Sequential test execution (cross-platform)
+test: $(TEST_BINS)
+ifeq ($(OS),Windows_NT)
+	@for %%f in ($(TEST_BINS)) do @(echo --- %%f --- & "%%f" || exit /b 1)
+else
+	@for bin in $(TEST_BINS); do echo "--- $$bin ---"; ./$$bin || exit 1; done
+endif
+
+# Parallel test execution
+test-parallel: $(TEST_BINS)
+	@echo "=== Running $(words $(TEST_BINS)) test suites in parallel ==="
+ifeq ($(OS),Windows_NT)
+	@powershell -NoProfile -Command " $jobs = @($(foreach bin,$(TEST_BINS), Start-Job -ScriptBlock { & '$(bin)' 2>&1 })); $jobs | Wait-Job | Receive-Job; $jobs | Remove-Job"
+else
+	@for bin in $(TEST_BINS); do (./$$bin > /tmp/$$bin.out 2>&1) & done; wait; for bin in $(TEST_BINS); do echo "--- $$bin ---"; cat /tmp/$$bin.out; done
+endif
 
 # ---- Clean (portable) ---------------------------------------------------
 ifeq ($(OS),Windows_NT)

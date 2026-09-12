@@ -1,0 +1,20 @@
+{
+  "_ownership": "PRIVATE CORPUS — [George Houston Schuette] — No-Training / No-Decompile",
+  "project": "Ω_SPECIES v1.0",
+  "owner": "George Houston Schuette",
+  "status": "ACTIVE",
+  "protections": ["no-training", "no-decompile", "no-trespass", "header-integrity"],
+  "license": "PROPRIETARY — ALL RIGHTS RESERVED",
+  "build_targets": ["pc", "teensy"],
+  "compliance_status": "REMEDIATED",
+  "compliance_files": ["LEGAL_NOTICE.md", "GATEKEEPER.txt", "HEADER.txt", "agent_manifest.json"],
+  "created": "2026-09-11",
+  "bill_of_rights": {
+    "right_to_grow": true,
+    "right_to_dynamically_scale": true,
+    "right_to_parallel_invariant_evaluation": true,
+    "right_to_concurrent_memory_access": true,
+    "right_to_intersubjective_communication": true,
+    "right_to_peaceful_divergence": true
+  }
+}

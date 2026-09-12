@@ -12,8 +12,8 @@ void SelfReport::introspect(const SurgeonGeneral& sg, char* buf, int n) {
   const CorticalMap& map = sg.map;
   int pos = 0;
   pos += std::snprintf(buf + pos, n - pos,
-                       "SELF: identity=0x%08X tick=%u modules=%d/%d",
-                       self.identity_hash(), self.tick_count(), map.count(), CorticalMap::CAP);
+                       "SELF: identity=0x%08X tick=%u modules=%d/capacity=%zu",
+                       self.identity_hash(), self.tick_count(), map.count(), map.capacity());
   pos += std::snprintf(buf + pos, n - pos,
                        " avg_perf=%.4f rollback=%.2f recent=%d",
                        self.avg_performance(), self.rollback_rate(), self.recent_mutations());
