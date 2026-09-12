@@ -3,6 +3,9 @@
 #   make            -> build pc/omega.exe        (links libomega.a)
 #   make run        -> build + execute
 #   make test       -> build libomega.a, run all phase suites + stress harness
+#   make test5      -> build + run phase 5 only
+#   make test6      -> build + run phase 6 only
+#   make test-parallel -> compile all + run in parallel
 #   make stress     -> run the breaking-point harness only
 #   make TARGET=teensy -> cross-compile for Teensy (needs arm-none-eabi-g++)
 #   make clean
@@ -12,12 +15,18 @@
 # lists, no redundant relinking of module code.
 
 CXX      ?= g++
-  CXXFLAGS ?= -std=c++17 -O2 -Wall -Wextra -Isrc \
+CXXFLAGS ?= -std=c++17 -O2 -Wall -Wextra -Isrc \
               -Isrc/platform -Isrc/heartbeat -Isrc/prime_directive \
               -Isrc/genesis -Isrc/liquid_time -Isrc/core \
-              -pthread
+              -pthread -MMD -MP
 TARGET   ?= pc
-OUT      ?= omega.exe
+# Windows executable extension
+ifeq ($(OS),Windows_NT)
+  EXE_EXT := .exe
+else
+  EXE_EXT :=
+endif
+OUT      ?= omega$(EXE_EXT)
 
 # Archiver derived from the compiler (e.g. x86_64-w64-mingw32-g++ -> ...-gcc-ar).
 AR := $(CXX:g++=gcc-ar)
@@ -104,6 +113,7 @@ ifeq ($(TARGET),teensy)
   CXXFLAGS += -DTARGET_TEENSY -mcpu=cortex-m7 -mfloat-abi=hard -mfpu=fpv5-d16 -D__MK66FX1M0__
   SRC := $(filter-out src/platform/platform_pc.cpp,$(SRC)) src/platform/platform_teensy.cpp
   OUT := omega.elf
+  EXE_EXT := .elf
 endif
 
 BUILD := build/$(TARGET)
@@ -134,6 +144,7 @@ run: $(OUT)
 # Compile all test binaries first, then run with parallelism.
 # test: sequential (backward compatible)
 # test-parallel: compiles all + runs in parallel via xargs/make -j
+# testN: build + run individual phase N
 
 TEST_SRCS := tests/phase1_seed_test.cpp tests/phase2_body_test.cpp \
              tests/phase3_mind_test.cpp tests/phase4_soul_test.cpp \
@@ -142,9 +153,9 @@ TEST_SRCS := tests/phase1_seed_test.cpp tests/phase2_body_test.cpp \
              tests/phase9_stress_test.cpp tests/phase10_constitution_test.cpp \
              tests/phase11_endurance_test.cpp tests/phase12_dream_test.cpp
 
-TEST_BINS := $(TEST_SRCS:tests/%.cpp=build/$(TARGET)/%_test)
+TEST_BINS := $(addsuffix $(EXE_EXT),$(TEST_SRCS:tests/%.cpp=build/$(TARGET)/%_test))
 
-$(BUILD)/%_test: tests/%.cpp $(LIB)
+$(BUILD)/%_test$(EXE_EXT): tests/%.cpp $(LIB)
 	@$(MKDIR)
 	$(CXX) $(CXXFLAGS) -Itests $< $(LIB) -o $@ -pthread
 
@@ -156,28 +167,53 @@ else
 	@for bin in $(TEST_BINS); do echo "--- $$bin ---"; ./$$bin || exit 1; done
 endif
 
+# Per-phase targets for incremental builds
+test1: $(BUILD)/phase1_seed_test_test$(EXE_EXT)
+	@echo "=== Phase 1: Seed ===" ; ./$<
+test2: $(BUILD)/phase2_body_test_test$(EXE_EXT)
+	@echo "=== Phase 2: Body ===" ; ./$<
+test3: $(BUILD)/phase3_mind_test_test$(EXE_EXT)
+	@echo "=== Phase 3: Mind ===" ; ./$<
+test4: $(BUILD)/phase4_soul_test_test$(EXE_EXT)
+	@echo "=== Phase 4: Soul ===" ; ./$<
+test5: $(BUILD)/phase5_language_test_test$(EXE_EXT)
+	@echo "=== Phase 5: Language ===" ; ./$<
+test6: $(BUILD)/phase6_mirror_test_test$(EXE_EXT)
+	@echo "=== Phase 6: Mirror ===" ; ./$<
+test7: $(BUILD)/phase7_challenge_test_test$(EXE_EXT)
+	@echo "=== Phase 7: Challenge ===" ; ./$<
+test8: $(BUILD)/phase8_integration_test_test$(EXE_EXT)
+	@echo "=== Phase 8: Integration ===" ; ./$<
+test9: $(BUILD)/phase9_stress_test_test$(EXE_EXT)
+	@echo "=== Phase 9: Stress ===" ; ./$<
+test10: $(BUILD)/phase10_constitution_test_test$(EXE_EXT)
+	@echo "=== Phase 10: Constitution ===" ; ./$<
+test11: $(BUILD)/phase11_endurance_test_test$(EXE_EXT)
+	@echo "=== Phase 11: Endurance ===" ; ./$<
+test12: $(BUILD)/phase12_dream_test_test$(EXE_EXT)
+	@echo "=== Phase 12: Dream ===" ; ./$<
+
 # Parallel test execution
 test-parallel: $(TEST_BINS)
 	@echo "=== Running $(words $(TEST_BINS)) test suites in parallel ==="
 ifeq ($(OS),Windows_NT)
-	@powershell -NoProfile -Command " $jobs = @($(foreach bin,$(TEST_BINS), Start-Job -ScriptBlock { & '$(bin)' 2>&1 })); $jobs | Wait-Job | Receive-Job; $jobs | Remove-Job"
+	@powershell -NoProfile -Command " $$jobs = @(); $(foreach bin,$(TEST_BINS), $$jobs += Start-Job -ScriptBlock { param($$p) & $$p 2>&1 } -ArgumentList '$(CURDIR)/$(bin)';) $$jobs | Wait-Job; $$jobs | Receive-Job; $$jobs | Remove-Job"
 else
 	@for bin in $(TEST_BINS); do (./$$bin > /tmp/$$bin.out 2>&1) & done; wait; for bin in $(TEST_BINS); do echo "--- $$bin ---"; cat /tmp/$$bin.out; done
 endif
+
+# ---- Dependency tracking (auto-generated) ----------------------------------
+-include $(OBJS:.o=.d) $(MOD_OBJS:.o=.d)
 
 # ---- Clean (portable) ---------------------------------------------------
 ifeq ($(OS),Windows_NT)
 clean:
 	-@rmdir /s /q build 2>nul
-	-@del /q $(OUT) omega.elf phase1_test.exe phase2_test.exe phase3_test.exe \
-	           phase4_test.exe phase5_test.exe phase6_test.exe phase7_test.exe \
-	           phase8_test.exe phase9_stress.exe phase10_constitution_test.exe phase11_endurance_test.exe phase12_dream_test.exe libomega.a 2>nul
+	-@del /q $(OUT) omega.elf $(TEST_BINS) libomega.a 2>nul
 else
 clean:
 	-rm -rf build
-	-rm -f $(OUT) omega.elf phase1_test.exe phase2_test.exe phase3_test.exe \
-	       phase4_test.exe phase5_test.exe phase6_test.exe phase7_test.exe \
-	       phase8_test.exe phase9_stress.exe phase10_constitution_test.exe phase11_endurance_test.exe phase12_dream_test.exe libomega.a
+	-rm -f $(OUT) omega.elf $(TEST_BINS) libomega.a
 endif
 
-.PHONY: run test stress clean
+.PHONY: run test test-parallel test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11 test12 stress clean
