@@ -107,8 +107,8 @@ make clean
 **Total (Phase 1–12): 226 pass, 0 fail, 20 HELD, 0 BROKE**
 
 Additional harnesses (not counted above):
-- `fuzz` — 14013 pass, 0 fail (50K rounds across 11 modules)
-- `endurance-1m` — 1M-tick run with MemoryMetrics + HeapStats checkpoints
+- `fuzz` — 14013 pass, 0 fail (50K rounds, 117ms)
+- `endurance-1m` — 12 pass, 0 fail (1M ticks, 413s, no leaks, peak 32B)
 
 ## Test Status Semantics
 
