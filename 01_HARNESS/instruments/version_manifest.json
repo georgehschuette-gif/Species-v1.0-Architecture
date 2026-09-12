@@ -1,0 +1,49 @@
+{
+  "_ownership": "PRIVATE CORPUS — [George Houston Schuette] — No-Training / No-Decompile",
+  "instruments": {
+    "log_loss": {
+      "file": "log_loss.py",
+      "description": "Normalized log loss, SPC score",
+      "version": "0.1.0",
+      "sha256": "pending"
+    },
+    "brier_score": {
+      "file": "brier_score.py",
+      "description": "Brier score (mean squared error of probabilistic predictions)",
+      "version": "0.1.0",
+      "sha256": "pending"
+    },
+    "calibration": {
+      "file": "calibration.py",
+      "description": "Reliability diagrams, ECE, slope/intercept",
+      "version": "0.1.0",
+      "sha256": "pending"
+    },
+    "entropy": {
+      "file": "entropy.py",
+      "description": "Shannon, behavioral, environmental entropy, low-info filter",
+      "version": "0.1.0",
+      "sha256": "pending"
+    },
+    "spc": {
+      "file": "spc.py",
+      "description": "SPC (Self-Predictive Coherence) — primary metric",
+      "version": "0.1.0",
+      "sha256": "pending"
+    },
+    "spp": {
+      "file": "spp.py",
+      "description": "SPP (Self-Predictive Power) — primary endpoint",
+      "version": "0.1.0",
+      "sha256": "pending"
+    },
+    "bootstrap_ci": {
+      "file": "bootstrap_ci.py",
+      "description": "Bootstrap confidence intervals and p-values",
+      "version": "0.1.0",
+      "sha256": "pending"
+    }
+  },
+  "contract_version": "v0.1",
+  "instrument_versions_hash": "pending"
+}
