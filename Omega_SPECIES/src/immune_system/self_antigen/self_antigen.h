@@ -25,6 +25,12 @@ struct SelfAntigen {
   int phenotype_drift(const SelfAntigen& other) const;
 
   void to_hex(char* out, int outlen) const;
+
+  // Sign a message using the genotype as private key (HMAC-SHA256)
+  void sign(const uint8_t* message, size_t msg_len, uint8_t* signature) const;
+
+  // Verify a signature against the genotype
+  bool verify(const uint8_t* message, size_t msg_len, const uint8_t* signature) const;
 };
 
 }  // namespace omega

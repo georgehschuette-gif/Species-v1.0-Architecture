@@ -55,4 +55,29 @@ void SelfAntigen::to_hex(char* out, int outlen) const {
   out[k] = '\0';
 }
 
+void SelfAntigen::sign(const uint8_t* message, size_t msg_len, uint8_t* signature) const {
+  // HMAC-SHA256 using genotype (first 32 bytes) as key
+  // Simple HMAC implementation: SHA256(key || message || key)
+  uint8_t buf[256];
+  size_t key_len = 32;
+
+  // Copy key
+  memcpy(buf, data, key_len);
+
+  // Copy message
+  size_t n = msg_len < 192 ? msg_len : 192;
+  if (message && msg_len > 0) memcpy(buf + key_len, message, n);
+
+  // Copy key again
+  memcpy(buf + key_len + n, data, key_len);
+
+  sha256(buf, key_len + n + key_len, signature);
+}
+
+bool SelfAntigen::verify(const uint8_t* message, size_t msg_len, const uint8_t* signature) const {
+  uint8_t computed_sig[32];
+  sign(message, msg_len, computed_sig);
+  return memcmp(computed_sig, signature, 32) == 0;
+}
+
 }  // namespace omega

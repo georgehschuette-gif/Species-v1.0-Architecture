@@ -83,6 +83,7 @@ private:
         mutable std::mutex mutex;
         size_t capacity;
         mutable size_t hits;
+        std::atomic<bool> alive{true};  // For handoff protocol
         explicit Shard(size_t cap = 256) : capacity(cap), hits(0) {}
     };
 
@@ -176,6 +177,77 @@ public:
                 fn(p.first, p.second);
             }
         }
+    }
+
+    // ---- Handoff Protocol: Shard Inheritance ----
+    // When a shard dies, neighboring shards negotiate which one inherits its responsibility.
+    // This is not load-balancing — it's inheritance of duty. A shard that carries meaning
+    // is not just a cache; it's a memory bearer. This implements localized mortality:
+    // when one shard dies, others mourn but continue.
+    bool mark_shard_dead(size_t shard_idx) {
+        if (shard_idx >= SHARDS) return false;
+        shards_[shard_idx].alive.store(false, std::memory_order_release);
+        return true;
+    }
+
+    bool is_shard_alive(size_t shard_idx) const {
+        if (shard_idx >= SHARDS) return false;
+        return shards_[shard_idx].alive.load(std::memory_order_acquire);
+    }
+
+    // Negotiate inheritance: find the best neighboring shard to inherit dead shard's entries
+    size_t negotiate_inheritance(size_t dead_shard_idx) {
+        if (dead_shard_idx >= SHARDS) return SHARDS;
+        if (is_shard_alive(dead_shard_idx)) return dead_shard_idx;  // Not dead
+
+        // Find neighbors with lowest load (fewest entries)
+        size_t best_neighbor = dead_shard_idx;
+        size_t min_load = SIZE_MAX;
+
+        // Check left neighbor
+        size_t left = (dead_shard_idx + SHARDS - 1) % SHARDS;
+        if (is_shard_alive(left)) {
+            std::lock_guard<std::mutex> lock(shards_[left].mutex);
+            if (shards_[left].entries.size() < min_load) {
+                min_load = shards_[left].entries.size();
+                best_neighbor = left;
+            }
+        }
+
+        // Check right neighbor
+        size_t right = (dead_shard_idx + 1) % SHARDS;
+        if (is_shard_alive(right)) {
+            std::lock_guard<std::mutex> lock(shards_[right].mutex);
+            if (shards_[right].entries.size() < min_load) {
+                min_load = shards_[right].entries.size();
+                best_neighbor = right;
+            }
+        }
+
+        return best_neighbor;
+    }
+
+    // Execute handoff: move all entries from dead shard to inheritor
+    size_t execute_handoff(size_t dead_shard_idx, size_t inheritor_idx) {
+        if (dead_shard_idx >= SHARDS || inheritor_idx >= SHARDS) return 0;
+        if (dead_shard_idx == inheritor_idx) return 0;
+        if (is_shard_alive(dead_shard_idx)) return 0;
+
+        std::vector<std::pair<K, V>> entries_to_move;
+        {
+            std::lock_guard<std::mutex> lock_dead(shards_[dead_shard_idx].mutex);
+            entries_to_move = std::move(shards_[dead_shard_idx].entries);
+            shards_[dead_shard_idx].entries.clear();
+        }
+
+        {
+            std::lock_guard<std::mutex> lock_inheritor(shards_[inheritor_idx].mutex);
+            for (auto& p : entries_to_move) {
+                shards_[inheritor_idx].entries.emplace_back(std::move(p));
+            }
+        }
+
+        return entries_to_move.size();
     }
 };
 

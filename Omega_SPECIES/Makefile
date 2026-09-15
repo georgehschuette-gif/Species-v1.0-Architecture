@@ -51,6 +51,7 @@ SRC := main.cpp \
        src/platform/platform_pc.cpp \
        src/heartbeat/heartbeat.cpp \
        src/genesis/birth_log.cpp \
+       src/genesis/phase0_genesis.cpp \
        src/liquid_time/tensorless.cpp \
        src/genesis/primordial_weights/primordial_weights.c \
        src/liquid_time/reservoir_pool/reservoir_pool.c \
@@ -83,6 +84,8 @@ SRC := main.cpp \
         src/self_surgery/constitutional_core/self_model.cpp \
         src/self_surgery/constitutional_core/constitution.cpp \
         src/self_surgery/constitutional_core/self_report.cpp \
+        src/self_surgery/constitutional_core/agents_diary.cpp \
+        src/self_surgery/constitutional_core/manifest_integrity.cpp \
        src/prime_directive/coherence_preservation/coherence_preservation.cpp \
        src/prime_directive/novelty_harvesting/novelty_harvesting.cpp \
        src/prime_directive/ontological_curiosity/ontological_curiosity.cpp \
@@ -149,7 +152,7 @@ run: $(OUT)
 # test-parallel: compiles all + runs in parallel via xargs/make -j
 # testN: build + run individual phase N
 
-TEST_SRCS := tests/phase1_seed_test.cpp tests/phase2_body_test.cpp \
+TEST_SRCS := tests/phase0_genesis_test.cpp tests/phase1_seed_test.cpp tests/phase2_body_test.cpp \
              tests/phase3_mind_test.cpp tests/phase4_soul_test.cpp \
              tests/phase5_language_test.cpp tests/phase6_mirror_test.cpp \
              tests/phase7_challenge_test.cpp tests/phase8_integration_test.cpp \
@@ -171,6 +174,8 @@ else
 endif
 
 # Per-phase targets for incremental builds
+test0: $(BUILD)/phase0_genesis_test_test$(EXE_EXT)
+	@echo "=== Phase 0: Genesis ===" ; ./$<
 test1: $(BUILD)/phase1_seed_test_test$(EXE_EXT)
 	@echo "=== Phase 1: Seed ===" ; ./$<
 test2: $(BUILD)/phase2_body_test_test$(EXE_EXT)
@@ -247,4 +252,4 @@ clean:
 	-rm -f $(OUT) omega.elf $(TEST_BINS) libomega.a
 endif
 
-.PHONY: run test test-parallel test-parallel-posix test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11 test12 stress fuzz endurance-1m clean
+.PHONY: run test test-parallel test-parallel-posix test0 test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11 test12 stress fuzz endurance-1m clean

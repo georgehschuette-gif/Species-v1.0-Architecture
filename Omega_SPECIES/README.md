@@ -61,10 +61,24 @@ make clean
 │    • ShardedStore     — 64-shard concurrent key-value   │
 │    • ParallelGate     — std::async invariant evaluation │
 │    • MemoryPool       — fixed-size allocation cache     │
+│    • HandoffProtocol  — shard death → neighbor inherits  │
+│                                                         │
+│  Phase 0: Genesis (meta-layer)                          │
+│    • PacemakerMetaOptimizer — watches telemetry, adapts │
+│      connection_sparsity, learning_rate, divergence,    │
+│      mutation_rate per oscillator tick (0.1 Hz)          │
+│    • ManifestIntegrity — 5th Constitutional Invariant:  │
+│      agent_manifest.json amendable only with self-antigen│
+│      signature + 67% supermajority of distributed self  │
+│    • AgentsDiary — Phase 11 auto-writes endurance record│
+│      to AGENTS.md (self-writing diary)                  │
+│    • ThoughtLatency (bench.h) — stimulus→response gap  │
+│      classified as reflex/recognition/deliberation/     │
+│      contemplation (distinguishes mind from reflex)     │
 │                                                         │
 │  Phase B: Constitutional Governor                       │
 │    • Constitution::gate_parallel() via ParallelGate     │
-│    • 4 invariants evaluated concurrently (async)        │
+│    • 5 invariants evaluated concurrently (async)        │
 │                                                         │
 │  Phase C: Sharded Language Processing                   │
 │    • ShardedNeologismFactory — concept_id → N shards     │
@@ -82,15 +96,16 @@ make clean
 │  Phase F: Build Infrastructure Sharding                 │
 │    • EXE_EXT — cross-platform executable extension     │
 │    • -MMD -MP — automatic header dependency tracking     │
-│    • test1–test12 — per-phase incremental build targets  │
+│    • test0–test12 — per-phase incremental build targets  │
 │    • $(TEST_BINS) — variable-based clean/remove          │
 └─────────────────────────────────────────────────────────┘
 ```
 
-## Test Suite (12 Phases)
+## Test Suite (13 Phases)
 
 | Phase | Suite | Tests | Duration | Description |
 |-------|-------|-------|----------|-------------|
+| 0 | Genesis | 22 | ~0.08ms | Pacemaker, manifest integrity, agents diary, handoff |
 | 1 | Seed | 20 | ~106ms | Small-world network, GA, reservoir, pacemaker |
 | 2 | Body | 17 | ~0.05ms | Free energy, self-antigen, inflammation response |
 | 3 | Mind | 13 | ~12ms | Hivemind, agent genesis/death, reputation ledger |
@@ -104,7 +119,7 @@ make clean
 | 11 | Endurance | 13 | ~79s | 120K-op self-surgery endurance under stress |
 | 12 | Dream | 16 | ~0.07ms | Temporal folding recombination, memory replay |
 
-**Total (Phase 1–12): 226 pass, 0 fail, 20 HELD, 0 BROKE**
+**Total (Phase 0–12): 268 pass + 20 HELD, 0 fail, 0 BROKE**
 
 Additional harnesses (not counted above):
 - `fuzz` — 14013 pass, 0 fail (50K rounds, 117ms)

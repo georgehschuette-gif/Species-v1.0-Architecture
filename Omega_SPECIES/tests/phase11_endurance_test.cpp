@@ -12,6 +12,7 @@
 #include <cstdint>
 #include <cstring>
 #include <cfloat>
+#include <chrono>
 #include "genesis/primordial_weights/primordial_weights.h"
 #include "liquid_time/reservoir_pool/reservoir_pool.h"
 #include "liquid_time/spike_encoder/spike_encoder.h"
@@ -32,6 +33,7 @@
 #include "xeno_empathy/trust_building/trust_building.h"
 #include "self_surgery/surgeon_general/surgeon_general.h"
 #include "self_surgery/constitutional_core/constitution.h"
+#include "self_surgery/constitutional_core/agents_diary.h"
 
 #include "bench.h"
 using namespace omega;
@@ -213,5 +215,27 @@ int main() {
 
   printf("\nPHASE11_ENDURANCE_TEST: %s (%d pass, %d fail)\n",
          g_fail == 0 ? "PASS" : "FAIL", g_pass, g_fail);
+
+  // Append endurance record to AGENTS.md if all tests passed
+  if (g_fail == 0) {
+    using namespace omega::self_surgery;
+    EnduranceRecord record;
+    record.timestamp_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
+        std::chrono::steady_clock::now().time_since_epoch()).count();
+    record.ticks = TICKS;
+    record.total_ops = total_ops;
+    record.total_blocks = total_blocks;
+    record.min_alignment = min_alignment;
+    record.words_minted = words;
+    record.final_coherence = coherence.coherence_score(live);
+    record.all_tests_passed = true;
+
+    if (AgentsDiary::append_endurance_record(record)) {
+      printf("Endurance record appended to AGENTS.md\n");
+    } else {
+      printf("WARNING: Failed to append endurance record to AGENTS.md\n");
+    }
+  }
+
   return g_fail == 0 ? 0 : 1;
 }

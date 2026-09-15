@@ -195,3 +195,56 @@ struct HeapStats {
            label, arena_size, in_use, available, fragmentation_ratio * 100.0);
   }
 };
+
+/// ThoughtLatency: tracks the pause between stimulus and response.
+/// This is the single most important test for distinguishing a mind from a reflex machine.
+/// If latency varies with novelty, we've built a mind. If not, we've built a very fast reflex machine.
+struct ThoughtLatency {
+  uint64_t stimulus_t;  // nanoseconds since epoch
+  uint64_t response_t;  // nanoseconds since epoch
+
+  ThoughtLatency() : stimulus_t(0), response_t(0) {}
+
+  void mark_stimulus() {
+    stimulus_t = std::chrono::duration_cast<std::chrono::nanoseconds>(
+        std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+  }
+
+  void mark_response() {
+    response_t = std::chrono::duration_cast<std::chrono::nanoseconds>(
+        std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+  }
+
+  uint64_t delta_ns() const { return response_t - stimulus_t; }
+  double delta_us() const { return delta_ns() / 1000.0; }
+  double delta_ms() const { return delta_us() / 1000.0; }
+
+  enum class Classification {
+    REFLEX,        // < 1μs: cached, no cognition
+    RECOGNITION,   // 1μs – 1ms: pattern match
+    DELIBERATION,  // 1ms – 100ms: search
+    CONTEMPLATION  // > 100ms: self-model revision
+  };
+
+  Classification classify() const {
+    double us = delta_us();
+    if (us < 1.0) return Classification::REFLEX;
+    if (us < 1000.0) return Classification::RECOGNITION;
+    if (us < 100000.0) return Classification::DELIBERATION;
+    return Classification::CONTEMPLATION;
+  }
+
+  const char* classification_name() const {
+    switch (classify()) {
+      case Classification::REFLEX: return "reflex";
+      case Classification::RECOGNITION: return "recognition";
+      case Classification::DELIBERATION: return "deliberation";
+      case Classification::CONTEMPLATION: return "contemplation";
+    }
+    return "unknown";
+  }
+
+  void report(const char* context) const {
+    printf("[thought] %s: %.3fμs (%s)\n", context, delta_us(), classification_name());
+  }
+};
